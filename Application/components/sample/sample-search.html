@@ -1,0 +1,46 @@
+<!-- Find filter, displays toolbar and search parameters
+    Inputs:  get fields for find parameters dynamically from tFormTemplate.SearchView 
+    Output:  call the list display to select the rececord
+
+    IMPORTANT: Lazy load each resource as needed -- otherwise we will have a huge js file to load
+-->
+ 
+<md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-is-open="true" md-component-id="right">
+    <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">Filter List By</h1>
+    </md-toolbar>
+    <div layout-padding ng-controller="EventCtrl">
+        <form>
+            <div class="md-padding" ng-cloak >
+                <div>
+                    <div layout="column">
+                        <md-button ng-init="SampleCtrl.showItemFetchProgressBar = true" ng-click="applyFilters(event)"
+                            class="md-accent md-raised">Search
+                        </md-button>
+                        <md-input-container>
+                            <label>Program</label>
+                            <md-select ng-model="event.program">
+                                <md-option value="-1">Select Program</md-option>
+                                <md-option  value="">
+                                    {{::filter.program}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-input-container ng-hide="">
+                            <label>Location</label>
+                            <md-select ng-model="event.location">
+                                <md-option value="-1">Select Location
+                                </md-option>
+                                <md-option  value="{{::filter.location}}">{{::filter.location}}
+                                </md-option>
+                            </md-select>
+                        </md-input-container>
+                        <md-button ng-init="showItemFetchProgressBar = true" ng-click="applyFilters(event)"
+                            class="md-accent md-raised">Search
+                        </md-button>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</md-sidenav>

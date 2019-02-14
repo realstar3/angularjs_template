@@ -1,0 +1,21 @@
+<!-- help text - dialog
+    Inputs: None  
+-->
+
+<md-dialog flex-gt-md="40" aria-label="delete school" class="md-whiteframe-8dp cog-dialog-layout">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Help</h2>
+        </div>
+    </md-toolbar>
+    <md-dialog-content layout="row" flex-gt-xs="66">
+        <div hide-xs layout-padding>
+            <img ng-src="//res.cloudinary.com/cogran/image/upload/c_scale,h_200,q_10,w_200/v1490853160/bird-1773631_640.png" alt="login logo" />
+        </div>
+        <div class="md-dialog-content" ng-controller="LoginCtrl">
+            <br/>
+            <p ng-bind-html="renderHTML('<b>Please include some helpful text for this module</b>')"></p>
+            <br/>
+        </div>
+    </md-dialog-content>
+</md-dialog>
