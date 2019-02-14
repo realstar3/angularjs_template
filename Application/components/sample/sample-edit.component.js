@@ -1,3 +1,4 @@
+
 angular
     .module('sampleApp')
     .component('cogSampleEdit', {
@@ -5,4 +6,5 @@ angular
         bindings: {
             id: '<'
         }
-    })
+    });
+

@@ -1,0 +1,16 @@
+
+<div ng-controller="DashCtrl" ng-cloak>
+    <!--<a ui-sref="sample" ui-sref-active="active">Hello</a>-->
+    <md-content>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+            <div class="label" >click button!</div>
+        </section>
+        <md-divider></md-divider>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+            <md-button ng-click=clicked() class="md-fab md-primary" aria-label="Eat cake">
+                <md-icon md-svg-src="img/tweetThis.svg"></md-icon>
+            </md-button>
+        </section>
+        <md-divider></md-divider>
+    </md-content>
+</div>

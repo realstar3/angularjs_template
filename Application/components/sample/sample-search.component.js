@@ -1,6 +1,11 @@
 angular
-	.module('sampleApp')
+    .module('sampleApp')
     .component('cogSampleFind', {
-        templateUrl: '/components/sample/sample-search.html'
+        templateUrl: '/components/sample/sample-search.html',
+        bindings:{
+            value: '=',
+
+        },
+
     });
 

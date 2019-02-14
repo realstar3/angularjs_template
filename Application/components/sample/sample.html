@@ -1,43 +1,42 @@
-<!-- Sample accordion 
--->
 
-<div flex layout="row" layout-align="center none" ng-controller="SampleCtrl as ctrl">
+<div flex layout="row" layout-align="center none"  ng-controller="SampleCtrl as Sctl">
 
     <div id="sampleform" flex flex-md="80" flex-lg="65" flex-xl="55" style="max-height:none;">
-        <div layout-padding layout-margin flex-xs="100">
-            <div style="margin-left: 25%">
-            <mat-form-field class="example-full-width">
-                <i class="material-icons">
-                    search
-                </i>
-                <input matInput placeholder="Enter search String" ng-model="searchString" ng-change="changedSearch()">
-                <!--{{rootSearchString}}-->
-                <a ng-click="openRightSide()"><i class="material-icons">
-                    line_weight
-                </i></a>
-            </mat-form-field>
+
+        <div layout-padding layout-margin flex-xs="100" >
+            <div style="margin-left: 25%" ng-if="Sctl.data!=''">
+                <mat-form-field class="example-full-width">
+                    <i class="material-icons">
+                        search
+                    </i>
+
+                    <input  matInput placeholder="Enter search String" ng-model="Sctl.searchString" ng-change="changedSearch()">
+
+                    <a ng-click="openRightSide()"><i class="material-icons">
+                        line_weight
+                    </i></a>
+                </mat-form-field>
             </div>
             <br />
-            <v-accordion id="sampleSearchPane" class="vAccordion--default" control="sampleSearchPane"
-                         onexpand="expandCallback(index, id)" oncollapse="collapseCallback(index, id)">
-                <v-pane id="samplePane">
+            <v-accordion id="sampleSearchPane" class="vAccordion--default">
+                <v-pane id="pane1" ng-if="Sctl.data!=''">
                     <v-pane-header id="samplePane-header" aria-controls="samplePane-content">
                         Select or edit Results
                     </v-pane-header>
                     <v-pane-content id="samplePane-content" aria-labelledby="samplePane-header">
-                        <cog-sample-grid hero="ctrl.data"></cog-sample-grid>
+                        <cog-sample-grid keyword="Sctl.searchString" value="Sctl.data"></cog-sample-grid>
                     </v-pane-content>
                 </v-pane>
-                <v-pane id="sampleTablePane">
+                <v-pane id="pane2" >
                     <v-pane-header>
                         Field List
                     </v-pane-header>
                     <v-pane-content>
-                        <cog-sample-grid hero="ctrl.data"></cog-sample-grid>
+                        <cog-sample-grid value="Sctl.data"></cog-sample-grid>
                     </v-pane-content>
                 </v-pane>
             </v-accordion>
         </div>
     </div>
-    <cog-sample-find></cog-sample-find>
+    <cog-sample-find value="Sctl.data" ></cog-sample-find>
 </div>

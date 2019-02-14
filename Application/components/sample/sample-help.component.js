@@ -1,5 +1,5 @@
-angular
-    .module('sampleApp')
-    .component('sampleHelp', {
-        templateUrl: './components/sample-help.html'
-    })
+// angular
+//     .module('sampleApp')
+//     .component('sampleHelp', {
+//         templateUrl: './components/sample-help.html'
+//     })

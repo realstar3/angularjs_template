@@ -49,11 +49,10 @@
     <script src="/components/header/cog-header.component.js"></script>
 </head>
 
-<body ng-app="cogranApp">
+<body ng-app="cogranApp" ng-controller="AppCtrl">
 
 <div ng-cloak class="u-wideWrapper u-paddingHm u-paddingTl">
     <cog-header></cog-header>
-    <a ui-sref="sample" ui-sref-active="active">Hello</a>
 </div>
 <ui-view></ui-view>
 </body>

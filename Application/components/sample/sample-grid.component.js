@@ -3,7 +3,8 @@
         .component('cogSampleGrid', {
             templateUrl: './components/sample/sample-grid.html',
             bindings:{
-                hero: '='
+                keyword: '=',
+                value: '='
             }
         })
 
