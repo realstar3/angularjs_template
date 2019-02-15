@@ -13,6 +13,38 @@
 
         this.data = "";
         this.searchString = '';
+        $scope.header_string = "Field List"
+
+
+        $scope.stopCollapsing = false;
+        $scope.toggleCollapse = function(){
+
+            $scope.stopCollapsing = !$scope.stopCollapsing;
+        }
+
+
+        $scope.expandCallback = function (index, id) {
+            console.log('expand:', index, id);
+        };
+
+        $scope.collapseCallback = function (index, id) {
+            if($scope.stopCollapsing){
+                $scope.accordionA.toggle(index);
+            }
+            console.log('collapse:', index, id);
+        };
+
+        $scope.changedSearch = function(){
+            if($scope.Sctl.searchString===''){
+                $scope.accordionA.expand(1)
+            }
+            else
+            {
+                $scope.accordionA.expand(0)
+
+            }
+        }
+
 
 
         // $rootScope.rootSearchString = "test";

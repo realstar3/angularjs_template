@@ -10,7 +10,8 @@
                         search
                     </i>
 
-                    <input ng-if="Sctl.data!=''"  matInput placeholder="Enter search String" ng-model="Sctl.searchString" ng-change="changedSearch()">
+                    <input ng-if="Sctl.data!=''"  matInput placeholder="Enter search String"
+                           ng-model="Sctl.searchString" ng-change="changedSearch()">
 
                     <a ng-click="openRightSide()"><i class="material-icons">
                         line_weight
@@ -18,24 +19,31 @@
                 </mat-form-field>
             </div>
             <br />
-            <v-accordion id="sampleSearchPane" class="vAccordion--default" ng-if="Sctl.data!=''">
-                <v-pane id="pane1" expanded="Sctl.searchString!=''">
-                    <v-pane-header id="samplePane-header" aria-controls="samplePane-content">
+            <v-accordion id="accordionA" class="vAccordion--default" ng-hide="Sctl.data===''"
+                         control="accordionA" onexpand="expandCallback(index, id)"
+                         oncollapse="collapseCallback(index, id)">
+                <v-pane id="pane1" >
+                    <v-pane-header id="samplePane-header" aria-controls="samplePane-content" >
                         Select or edit Results
+
                     </v-pane-header>
                     <v-pane-content id="samplePane-content" aria-labelledby="samplePane-header">
                         <cog-sample-grid keyword="Sctl.searchString" value="Sctl.data"></cog-sample-grid>
                     </v-pane-content>
                 </v-pane>
-                <v-pane id="pane2" expanded="Sctl.searchString==''">
-                    <v-pane-header>
+
+                <v-pane id="pane2" expanded ng-hide="Sctl.searchString!==''">
+                    <v-pane-header id="samplePane2-header" aria-controls="samplePane2-content">
                         Field List
                     </v-pane-header>
-                    <v-pane-content>
+                    <v-pane-content id="samplePane2-content" aria-controls="samplePane2-header">
                         <cog-sample-grid value="Sctl.data"></cog-sample-grid>
                     </v-pane-content>
                 </v-pane>
+
+
             </v-accordion>
+
         </div>
     </div>
     <cog-sample-find value="Sctl.data" ></cog-sample-find>
