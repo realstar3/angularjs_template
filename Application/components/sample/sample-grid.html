@@ -41,20 +41,20 @@
                                 <md-icon>edit</md-icon>
                             </span>
                             <span id="sampleDelete[{{$index}}]" style="cursor: pointer;"
-                                  ng-click="[SampleCtrl.selectedSample = sampleSelected,showDeleteConfirmationDialog($event,sampleSelected.id)]">
+                                  ng-click="[SampleCtrl.selectedSample = sampleSelected,showDeleteConfirmationDialog($event,$index)]">
                                 <md-icon class="md-warn">delete</md-icon>
                             </span>
                         </td>
                         <td md-cell ng-click="editComment($event, $index, 'field01')"
-                            ng-model="$ctrl.value.data.formFields[$index].field01" ng-class="{'md-placeholder': !sampleSelected.field01}">
+                             ng-class="{'md-placeholder': !sampleSelected.field01}">
                             {{sampleSelected.field01}}
                         </td>
                         <td md-cell ng-click="editComment($event, $index, 'field02')"
-                            ng-model="$ctrl.value.data.formFields[$index].field02" ng-class="{'md-placeholder': !sampleSelected.field02}">
+                             ng-class="{'md-placeholder': !sampleSelected.field02}">
                             {{sampleSelected.field02}}
                         </td>
-                        <td md-cell ng-click="editComment($event, $index, 'field03')" ng-class="{'md-placeholder': !sampleSelected.field03}"
-                            ng-model="$ctrl.value.data.formFields[$index].field03">
+                        <td md-cell ng-click="editComment($event, $index, 'field03')"
+                            ng-class="{'md-placeholder': !sampleSelected.field03}">
                             {{sampleSelected.field03}}
                         </td>
 
