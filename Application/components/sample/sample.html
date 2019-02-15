@@ -22,7 +22,7 @@
             <v-accordion id="accordionA" class="vAccordion--default" ng-hide="Sctl.data===''"
                          control="accordionA" onexpand="expandCallback(index, id)"
                          oncollapse="collapseCallback(index, id)">
-                <v-pane id="pane1" >
+                <v-pane id="pane1" ng-hide="Sctl.searchString===''">
                     <v-pane-header id="samplePane-header" aria-controls="samplePane-content" >
                         Select or edit Results
 
