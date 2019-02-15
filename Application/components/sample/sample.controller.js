@@ -33,7 +33,7 @@
         var ctrl = this;
         var sc = $scope;
         $scope.applyFilters = function(){
-            let url  = 'https://my-json-server.typicode.com/realstar3/demo'
+            let url  = 'https://my-json-server.typicode.com/realstar3/demo/formFields'
             // let url  = '/components/sample/sample.json'
             if(sc.selectedFieldList != undefined && sc.selectedFieldList != '0'){
                 url = url + sc.selectedFieldList;
@@ -41,39 +41,40 @@
 
             $http.get(url).then(
                 function (fieldList) {
-                var keys = Object.keys(fieldList.data.formFields[0]);
-                $mdToast.show(
-                    $mdToast.simple()
-                        .textContent('json file is read successfully.')
-                        .hideDelay(3000))
-                    .then(
-                        function () {
-                            $log.log('Toast dismissed.');
-                        }
-                    )
-                    .catch(function() {
-                        $log.log('Toast failed or was forced to close early by another toast.');
-                    });
-
-                if (fieldList.data == null || fieldList.data.formFields.length<1){
-
+                    var keys = Object.keys(fieldList.data[0]);
                     $mdToast.show(
                         $mdToast.simple()
-                            .textContent('COG-1000 no records found, please try another search')
+                            .textContent('json file is read successfully.')
                             .hideDelay(3000))
-                        .then(function() {
-                            $log.log('Toast dismissed.');
-                        })
+                        .then(
+                            function () {
+                                $log.log('Toast dismissed.');
+                            }
+                        )
                         .catch(function() {
                             $log.log('Toast failed or was forced to close early by another toast.');
                         });
-                }else{
-                    fieldList.keys = keys
-                    sc.$parent.$ctrl.value = fieldList;
-                    // $rootScope.$emit("getSearchResults", fieldList.data, keys);
-                    $mdSidenav('right').toggle();
-                }
-            })
+
+                    if (fieldList.data == null || fieldList.data.length<1){
+
+                        $mdToast.show(
+                            $mdToast.simple()
+                                .textContent('COG-1000 no records found, please try another search')
+                                .hideDelay(3000))
+                            .then(function() {
+                                $log.log('Toast dismissed.');
+                            })
+                            .catch(function() {
+                                $log.log('Toast failed or was forced to close early by another toast.');
+                            });
+                    }else{
+                        fieldList.keys = keys;
+                        fieldList.data.formFields = fieldList.data;
+                        sc.$parent.$ctrl.value = fieldList;
+                        // $rootScope.$emit("getSearchResults", fieldList.data, keys);
+                        $mdSidenav('right').toggle();
+                    }
+                })
                 .catch(function (err) {
                     ctrl.serverfakeerror= 'error: ' + err.status + ' : ' + err.statusText;
                     $mdToast.show(
