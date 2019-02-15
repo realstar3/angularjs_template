@@ -15,17 +15,23 @@
                 </div>
             </md-toolbar>
             <md-dialog-content layout="row" flex-gt-xs="66">
-            <ng-form name="sampleEdit" novalidate>
+            <ng-form name="sampleAdd" novalidate>
+                <md-input-container class="md-block">
+                    <label>ID</label>
+                    <input ng-readonly="false" type="text" ng-model="formField.id" name="id_num" id="id_num"
+                           aria-label="" />
+                    <div class="md-caption">Enter the ID of the sample</div>
+                </md-input-container>
                 <md-input-container class="md-block">
                     <label>Field 01</label>
-                    <input ng-readonly="false" type="text" ng-model="" name="field01" id="field01"
+                    <input ng-readonly="false" type="text" ng-model="formField.field01" name="field01" id="field01"
                         aria-label="" />
                     <div class="md-caption">Enter the field01 of the sample</div>
                 </md-input-container>
 
                 <md-input-container class="md-block">
                     <label>Field 02</label>
-                    <input ng-readonly="false" type="text" ng-model="" name="field02" id="field02"
+                    <input ng-readonly="false" type="text" ng-model="formField.field02" name="field02" id="field02"
                         aria-label="" />
                     <div class="md-caption">Enter the field02 of the sample</div>
                 </md-input-container>
@@ -33,13 +39,13 @@
 
                 <md-input-container class="md-block">
                     <label>Field 03</label>
-                    <input ng-readonly="false" type="text" ng-model="" name="field03" id="field03"
+                    <input ng-readonly="false" type="text" ng-model="formField.field03" name="field03" id="field03"
                         aria-label="" />
                     <div class="md-caption">Enter the field03 of the sample</div>
                 </md-input-container>
 
                 <div layout="column " class="layout-column ">
-                    <md-button cogvalidate="" class="md-raised md-primary md-block md-DarkBlue-theme ">Add</md-button>
+                    <md-button cogvalidate="" ng-click="addRecord(formField)" class="md-raised md-primary md-block md-DarkBlue-theme ">Add</md-button>
                     <md-button ng-click="displayPrevious($accordion, 0) " class="md-primary md-warn md-block md-DarkBlue-theme ">Close and Back
                         to select sample</md-button>
                 </div>

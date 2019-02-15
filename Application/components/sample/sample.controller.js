@@ -172,6 +172,7 @@
                 scope: $scope,        // use parent scope in template
                 preserveScope: true,
                 controller: AddCtrl,
+                locals: {formFields: sc.$parent.$ctrl.value.data.formFields},
                 templateUrl: '/components/sample/sample-add.dialog.html'
             });
         };
@@ -234,6 +235,11 @@
         }
     }
     function AddCtrl($ocLazyLoad, $scope, $mdDialog) {
+
+        $scope.addRecord = function(formField){
+            $scope.$parent.$ctrl.value.data.formFields.push(formField);
+            $mdDialog.hide();
+        }
         $scope.closeDialog = function() {
             $mdDialog.hide();
         }
