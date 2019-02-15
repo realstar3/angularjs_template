@@ -4,13 +4,13 @@
     <div id="sampleform" flex flex-md="80" flex-lg="65" flex-xl="55" style="max-height:none;">
 
         <div layout-padding layout-margin flex-xs="100" >
-            <div style="margin-left: 25%" ng-if="Sctl.data!=''">
+            <div style="margin-left: 25%" >
                 <mat-form-field class="example-full-width">
-                    <i class="material-icons">
+                    <i class="material-icons" ng-if="Sctl.data!=''">
                         search
                     </i>
 
-                    <input  matInput placeholder="Enter search String" ng-model="Sctl.searchString" ng-change="changedSearch()">
+                    <input ng-if="Sctl.data!=''"  matInput placeholder="Enter search String" ng-model="Sctl.searchString" ng-change="changedSearch()">
 
                     <a ng-click="openRightSide()"><i class="material-icons">
                         line_weight
