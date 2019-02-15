@@ -20,22 +20,23 @@
                 </md-button>
             </div>
         </md-toolbar>
-        <md-toolbar class="md-table-toolbar alternate" ng-show="options.rowSelection && selected.length">
-            <div class="md-toolbar-tools">
-                <span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected
-                </span>
-            </div>
-        </md-toolbar>
+        <!--<md-toolbar class="md-table-toolbar alternate" ng-show="options.rowSelection && selected.length">-->
+            <!--<div class="md-toolbar-tools">-->
+                <!--<span>{{selected.length}} {{selected.length > 1 ? 'items' : 'item'}} selected-->
+                <!--</span>-->
+            <!--</div>-->
+        <!--</md-toolbar>-->
         <md-table-container>
-            <table md-table md-row-select="true" multiple="true" ng-model="selected" md-progress="promise">
+            <table md-table ng-model="selected" md-progress="promise">
                 <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
                     <tr md-row>
+                        <th  md-column ><span>Action</span></th>
                         <th  ng-repeat="key in $ctrl.value.keys" md-column md-order-by='{{key}}'><span>{{key}}</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
                     <tr md-row md-select="sampleSelected" md-on-select="logItem" ng-repeat="sampleSelected in $ctrl.value.data.formFields| filter: $ctrl.keyword | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-                        <td md-cell>
+                        <td md-cell class="width-override">
                             <span id="sampleSave[{{$index}}]" style="cursor: pointer;"
                                 ng-click="[showEditDialog($event, sampleSelected, sampleSelected.id)]">
                                 <md-icon>edit</md-icon>
@@ -44,6 +45,10 @@
                                   ng-click="[SampleCtrl.selectedSample = sampleSelected,showDeleteConfirmationDialog($event,$index)]">
                                 <md-icon class="md-warn">delete</md-icon>
                             </span>
+                        </td>
+                        <td md-cell ng-click="editComment($event, $index, 'id')"
+                            ng-class="{'md-placeholder': !sampleSelected.id}">
+                            {{sampleSelected.id}}
                         </td>
                         <td md-cell ng-click="editComment($event, $index, 'field01')"
                              ng-class="{'md-placeholder': !sampleSelected.field01}">
