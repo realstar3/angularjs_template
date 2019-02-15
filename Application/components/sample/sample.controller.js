@@ -33,7 +33,8 @@
         var ctrl = this;
         var sc = $scope;
         $scope.applyFilters = function(){
-            let url  = '/components/sample/sample.json'
+            let url  = 'https://my-json-server.typicode.com/realstar3/demo'
+            // let url  = '/components/sample/sample.json'
             if(sc.selectedFieldList != undefined && sc.selectedFieldList != '0'){
                 url = url + sc.selectedFieldList;
             }
