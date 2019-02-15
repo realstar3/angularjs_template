@@ -169,12 +169,13 @@
         };
 
         $scope.showAddDialog = function (event) {
+            $scope.formField = '';
             $mdDialog.show({
                 clickOutsideToClose: true,
                 scope: $scope,        // use parent scope in template
                 preserveScope: true,
                 controller: AddCtrl,
-                locals: {formFields: sc.$parent.$ctrl.value.data.formFields},
+                locals: {formField: $scope.formField},
                 templateUrl: '/components/sample/sample-add.dialog.html'
             });
         };
@@ -222,7 +223,14 @@
     function DeleteCtrl($ocLazyLoad, $scope, $mdDialog, id) {
         $scope.confirmString = '<b>Are you sure you want to delete '+id+' row?</b>';
         $scope.id = id;
-        $scope.closeDialog = function() {
+        $scope.closeDialog = function(id, feedback) {
+            if(feedback==='y'){
+                $scope.$parent.$ctrl.value.data.formFields.forEach((f)=>{
+                    if(f.id===id){
+                        $scope.$parent.$ctrl.value.data.formFields.pop(f)
+                    }
+                })
+            }
             $mdDialog.hide();
         }
     }

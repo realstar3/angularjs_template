@@ -15,7 +15,7 @@
                 <!--</md-button>-->
                 <div flex></div>
                 <span></span>
-                <md-button class="md-icon-button" ng-click="showAddDialog($event)">
+                <md-button class="md-icon-button" ng-click="showAddDialog($event, $ctrl.value.data.formFields)">
                     <md-icon>add</md-icon>
                 </md-button>
             </div>
@@ -36,25 +36,26 @@
                 <tbody md-body>
                     <tr md-row md-select="sampleSelected" md-on-select="logItem" ng-repeat="sampleSelected in $ctrl.value.data.formFields| filter: $ctrl.keyword | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                         <td md-cell>
-                            <span id="sampleSave[{{sampleSelected.id - 1}}]" style="cursor: pointer;"
-                                ng-click="[changeRowSaveOption(sampleSelected.id),showEditDialog($event, sampleSelected, sampleSelected.id)]">
+                            <span id="sampleSave[{{$index}}]" style="cursor: pointer;"
+                                ng-click="[showEditDialog($event, sampleSelected, sampleSelected.id)]">
                                 <md-icon>edit</md-icon>
                             </span>
-                            <span id="sampleDelete[{{sampleSelected.id - 1}}]" style="cursor: pointer;" ng-click="[SampleCtrl.selectedSample = sampleSelected,showDeleteConfirmationDialog($event,sampleSelected.id)]">
+                            <span id="sampleDelete[{{$index}}]" style="cursor: pointer;"
+                                  ng-click="[SampleCtrl.selectedSample = sampleSelected,showDeleteConfirmationDialog($event,sampleSelected.id)]">
                                 <md-icon class="md-warn">delete</md-icon>
                             </span>
                         </td>
-                        <td md-cell ng-click="editComment($event, sampleSelected.id - 1, 'field01')"
-                            ng-model="$ctrl.value.data.formFields[sampleSelected.id - 1].field01" ng-class="{'md-placeholder': !sampleSelected.field01}">
+                        <td md-cell ng-click="editComment($event, $index, 'field01')"
+                            ng-model="$ctrl.value.data.formFields[$index].field01" ng-class="{'md-placeholder': !sampleSelected.field01}">
                             {{sampleSelected.field01}}
                         </td>
-                        <td md-cell ng-click="editComment($event, sampleSelected.id - 1, 'field02')"
-                            ng-model="$ctrl.value.data.formFields[sampleSelected.id - 1].field02" ng-class="{'md-placeholder': !sampleSelected.field02}">
+                        <td md-cell ng-click="editComment($event, $index, 'field02')"
+                            ng-model="$ctrl.value.data.formFields[$index].field02" ng-class="{'md-placeholder': !sampleSelected.field02}">
                             {{sampleSelected.field02}}
                         </td>
-                        <td md-cell ng-click="editComment($event, sampleSelected.id - 1, 'field03')" ng-class="{'md-placeholder': !sampleSelected.field03}"
-                            ng-model="$ctrl.value.data.formFields[sampleSelected.id - 1].field03">
-                            {{$ctrl.value.data.formFields[sampleSelected.id - 1].field03 }}
+                        <td md-cell ng-click="editComment($event, $index, 'field03')" ng-class="{'md-placeholder': !sampleSelected.field03}"
+                            ng-model="$ctrl.value.data.formFields[$index].field03">
+                            {{sampleSelected.field03}}
                         </td>
 
 
