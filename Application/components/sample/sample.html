@@ -19,7 +19,7 @@
             </div>
             <br />
             <v-accordion id="sampleSearchPane" class="vAccordion--default" ng-if="Sctl.data!=''">
-                <v-pane id="pane1" >
+                <v-pane id="pane1" expanded="Sctl.searchString!=''">
                     <v-pane-header id="samplePane-header" aria-controls="samplePane-content">
                         Select or edit Results
                     </v-pane-header>
@@ -27,7 +27,7 @@
                         <cog-sample-grid keyword="Sctl.searchString" value="Sctl.data"></cog-sample-grid>
                     </v-pane-content>
                 </v-pane>
-                <v-pane id="pane2" >
+                <v-pane id="pane2" expanded="Sctl.searchString==''">
                     <v-pane-header>
                         Field List
                     </v-pane-header>
