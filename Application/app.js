@@ -19,7 +19,6 @@ var app = angular.module('cogranApp', ['ngAnimate','ngMaterial','ui.router', 'ng
                             'https://www.cogran.io/assets/css/v-accordion-min.css',
                             'https://lukaszwatroba.github.io/v-accordion/dist/v-accordion.min.js',
                             'components/sample/sample.module.js',
-                            'components/sample/sample.config.js',
                             'components/sample/sample.component.js',
                             'components/sample/sample.controller.js',
                             'components/sample/sample-add.component.js',
@@ -39,7 +38,6 @@ var app = angular.module('cogranApp', ['ngAnimate','ngMaterial','ui.router', 'ng
                             'https://lukaszwatroba.github.io/v-accordion/dist/v-accordion.min.js',
 
                             'components/user/user.module.js',
-                            'components/user/user.config.js',
                             'components/user/user.component.js',
                             'components/user/user.controller.js',
 
