@@ -1,17 +1,18 @@
 (function(angular, undefined){
 
     angular.module('userApp', ['ngAnimate', 'oc.lazyLoad', 'ngMaterial', 'md.data.table',  'ngSanitize', 'vAccordion',])
-        .controller('SampleCtrl', SampleCtrl)
-        .controller('EventCtrl', EventCtrl)
-        .controller('AddCtrl', AddCtrl)
-        .controller('DeleteCtrl', DeleteCtrl)
-        .controller('EditCtrl', EditCtrl)
-        .controller('SampleGridCtrl', SampleGridCtrl);
+        .controller('UserCtrl', UserCtrl)
+        .controller('UserEventCtrl', UserEventCtrl)
+        .controller('UserAddCtrl', UserAddCtrl)
+        .controller('UserDeleteCtrl', UserDeleteCtrl)
+        .controller('UserEditCtrl', UserEditCtrl)
+        .controller('UserGridCtrl', UserGridCtrl);
 
-    function SampleCtrl($scope, $mdSidenav) {
+    function UserCtrl($scope, $mdSidenav) {
 
 
         this.data = "";
+        this.subject = "";
         this.searchString = '';
         $scope.header_string = "Field List"
 
@@ -47,7 +48,6 @@
 
         // $rootScope.rootSearchString = "test";
         $scope.openRightSide = function () {
-            // $ocLazyLoad.load('components/sample/sample-search.component.js');
             $mdSidenav('right').toggle();
 
         };
@@ -57,18 +57,20 @@
     }
 
 
-    function EventCtrl( $ocLazyLoad, $scope, $rootScope, $http, $mdSidenav, $mdToast, $log) {
+    function UserEventCtrl( $ocLazyLoad, $scope, $rootScope, $http, $mdSidenav, $mdToast, $log) {
 
         this.serverfakeerror=''
         var ctrl = this;
         var sc = $scope;
         $scope.applyFilters = function(){
+            sc.$parent.$ctrl.subject = sc.selectedForms;
             let url  = 'http://54.153.92.80:3001/';
-            // let url  = '/components/sample/sample.json'
-            if(sc.selectedForms === 'users'){
+
+            if(sc.selectedForms !== undefined){
                 url = url + sc.selectedForms;
             }else {
                 url = url + "users";
+                sc.$parent.$ctrl.subject = "users";
             }
 
             $http.get(url).then(
@@ -106,6 +108,7 @@
                                 $log.log('Toast failed or was forced to close early by another toast.');
                             });
                     }else{
+                        ctrl.serverfakeerror = ''
                         fieldList.keys = keys;
 
                         sc.$parent.$ctrl.value = fieldList;
@@ -126,8 +129,9 @@
     }
 
 
-    function SampleGridCtrl($ocLazyLoad, $http, $mdDialog, $mdToast, $mdEditDialog, $q, $timeout,$scope) {
-
+    function UserGridCtrl($ocLazyLoad, $http, $mdDialog, $mdToast, $mdEditDialog, $q, $timeout,$scope) {
+        this.subject = "";
+        var vm  = this;
         $scope.options = {
             rowSelection: true,
             multiSelect: true,
@@ -154,6 +158,7 @@
         };
         var sc = $scope;
 
+
         $scope.editComment = function (event, id, col_key) {
             event.stopPropagation(); // in case autoselect is enabled
 
@@ -171,7 +176,7 @@
 
                     record[col_key] = input.$modelValue;
                     //** PUT Method **
-                    let url  = 'http://54.153.92.80:3001/users/' + record.id;
+                    let url  = 'http://54.153.92.80:3001/' + sc.$parent.$ctrl.subject + "/" + record.id;
                     let config = {headers: { 'Content-Type': 'application/json; charset=UTF-8'}};
                     $http.put(url, record, config)
                         .then(function (response) {
@@ -180,7 +185,7 @@
                                 $mdToast.simple()
                                     .textContent(response.statusText)
                                     .hideDelay(3000))
-                            $http.get("http://54.153.92.80:3001/users/").then(function (fieldList) {
+                            $http.get("http://54.153.92.80:3001/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
                                 var keys = Object.keys(fieldList.data[0]);
                                 fieldList.keys = keys;
                                 sc.$parent.$ctrl.value = fieldList;
@@ -229,7 +234,7 @@
                 clickOutsideToClose: true,
                 scope: $scope,        // use parent scope in template
                 preserveScope: true,
-                controller: EditCtrl,
+                controller: UserEditCtrl,
                 locals: { selectedRecord: selectedRecord, keys: keys,},
                 templateUrl: '/components/user/user-edit.dialog.html'
             });
@@ -242,59 +247,31 @@
                 clickOutsideToClose: true,
                 scope: $scope,        // use parent scope in template
                 preserveScope: true,
-                controller: AddCtrl,
+                controller: UserAddCtrl,
                 locals: {record: $scope.record, keys: $scope.keys},
                 templateUrl: '/components/user/user-add.dialog.html'
             });
         };
 
-        // $scope.toggleLimitOptions = function () {
-        //     $scope.limitOptions = $scope.limitOptions ? undefined : [5, 10, 15];
-        // };
-        // $scope.onPaginate = function(page, limit) {
-        //     // console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
-        //     // console.log('Page: ' + page + ' Limit: ' + limit);
-        //
-        //     $scope.promise = $timeout(function () {
-        //
-        //     }, 2000);
-        // };
-        // $scope.logItem = function (item) {
-        //     // console.log(item.name, 'was selected');
-        // };
-        //
-        // $scope.loadStuff = function () {
-        //     $scope.promise = $timeout(function () {
-        //
-        //     }, 2000);
-        // };
-
-        // $scope.logOrder = function(order) {
-        //     $scope.promise = $timeout(function () {
-        //         $http.get('/components/sample/sample.json').then(function (fieldList) {
-        //             $scope.fieldList = fieldList.data;
-        //         });
-        //     }, 2000);
-        // };
 
         $scope.showDeleteConfirmationDialog = function(event, id){
             $mdDialog.show({
                 clickOutsideToClose: true,
                 scope: $scope,        // use parent scope in template
                 preserveScope: true,
-                controller: DeleteCtrl,
+                controller: UserDeleteCtrl,
                 locals: {id: id},
                 templateUrl: '/components/user/user-delete.dialog.html',
             });
         };
     }
 
-    function DeleteCtrl($ocLazyLoad, $http,$mdToast, $scope, $mdDialog, id) {
+    function UserDeleteCtrl($ocLazyLoad, $http,$mdToast, $scope, $mdDialog, id) {
         $scope.id = id;
         var sc = $scope
         $scope.closeDialog = function(id, feedback) {
             if(feedback==='y'){
-                let url  = 'http://54.153.92.80:3001/users/' + id;
+                let url  = 'http://54.153.92.80:3001/' + sc.$parent.$ctrl.subject+"/" + id;
                 let config = {headers: { 'Content-Type': 'application/json; charset=UTF-8'}};
                 $http.delete(url)
                     .then(function (response) {
@@ -302,7 +279,7 @@
                             $mdToast.simple()
                                 .textContent(response.statusText)
                                 .hideDelay(3000))
-                        $http.get("http://54.153.92.80:3001/users/").then(function (fieldList) {
+                        $http.get("http://54.153.92.80:3001/"+sc.$parent.$ctrl.subject).then(function (fieldList) {
                             var keys = Object.keys(fieldList.data[0]);
                             fieldList.keys = keys;
                             sc.$parent.$ctrl.value = fieldList;
@@ -323,7 +300,7 @@
             $mdDialog.hide();
         }
     }
-    function EditCtrl($ocLazyLoad, $scope,$http, $mdToast,  $mdDialog, selectedRecord, keys) {
+    function UserEditCtrl($ocLazyLoad, $scope,$http, $mdToast,  $mdDialog, selectedRecord, keys) {
 
         $scope.selectedRecord = selectedRecord;
         $scope.cancel = function() {
@@ -331,37 +308,46 @@
         }
         var sc = $scope;
         $scope.save= function(selectedRecord) {
-            let url  = 'http://54.153.92.80:3001/users/' + selectedRecord.id;
+            let url  = 'http://54.153.92.80:3001/' + sc.$parent.$ctrl.subject+"/" + selectedRecord.id;
             let config = {headers: { 'Content-Type': 'application/json; charset=UTF-8'}};
-            $http.put(url, selectedRecord, config).then(function (response) {
+            selectedRecord['id'] =  parseInt(selectedRecord['id'], 10);
+            $http.put(url, JSON.stringify(selectedRecord), config).then(function (response) {
                 $mdToast.show(
                     $mdToast.simple()
                         .textContent(response.statusText)
                         .hideDelay(3000))
-                $http.get("http://54.153.92.80:3001/users/").then(function (fieldList) {
+                $http.get("http://54.153.92.80:3001/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
                     var keys = Object.keys(fieldList.data[0]);
                     fieldList.keys = keys;
                     sc.$parent.$ctrl.value = fieldList;
 
-                })
+                });
+
             }).catch(function (response) {
                 $mdToast.show(
                     $mdToast.simple()
                         .textContent(response.statusText)
                         .hideDelay(3000))
-            })
+                $http.get("http://54.153.92.80:3001/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
+                    var keys = Object.keys(fieldList.data[0]);
+                    fieldList.keys = keys;
+                    sc.$parent.$ctrl.value = fieldList;
+
+                });
+            });
+
 
             $mdDialog.hide();
 
         }
     }
-    function AddCtrl($ocLazyLoad, $http, $mdToast, $scope, $mdDialog) {
+    function UserAddCtrl($ocLazyLoad, $http, $mdToast, $scope, $mdDialog) {
         var sc = $scope;
         $scope.addRecord = function(record){
 
             record['id'] =  parseInt(record['id'], 10);
 
-            let url  = 'http://54.153.92.80:3001/users/';
+            let url  = 'http://54.153.92.80:3001/' + sc.$parent.$ctrl.subject;
             let config = {headers: { 'Content-Type': 'application/json; charset=UTF-8'}};
             $http.post(url, record, config)
                 .then(function (response) {
@@ -369,7 +355,7 @@
                         $mdToast.simple()
                             .textContent(response.statusText)
                             .hideDelay(3000))
-                    $http.get("http://54.153.92.80:3001/users/").then(function (fieldList) {
+                    $http.get("http://54.153.92.80:3001/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
                         var keys = Object.keys(fieldList.data[0]);
                         fieldList.keys = keys;
                         sc.$parent.$ctrl.value = fieldList;

@@ -1,7 +1,7 @@
 angular
     .module('userApp')
     .component('cogUserAdd', {
-        templateUrl: '/components/user/sample-add.dialog.html',
+        templateUrl: '/components/user/user-add.dialog.html',
         bindings: {
             // id: '<'
         }

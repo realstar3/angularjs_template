@@ -1,5 +1,5 @@
 
-<div flex layout="row" layout-align="center none"  ng-controller="SampleCtrl as Sctl">
+<div flex layout="row" layout-align="center none"  ng-controller="UserCtrl as Sctl">
     <a href="#">Dashboard</a> > User
     <div id="sampleform" flex flex-md="80" flex-lg="65" flex-xl="55" style="max-height:none;">
 
@@ -39,7 +39,7 @@
                         Field List
                     </v-pane-header>
                     <v-pane-content id="samplePane2-content" aria-controls="samplePane2-header">
-                        <cog-user-grid value="Sctl.data"></cog-user-grid>
+                        <cog-user-grid value="Sctl.data" subject="Sctl.subject"></cog-user-grid>
                     </v-pane-content>
                 </v-pane>
 
@@ -48,5 +48,5 @@
 
         </div>
     </div>
-    <cog-user-find value="Sctl.data" ></cog-user-find>
+    <cog-user-find value="Sctl.data" subject="Sctl.subject"></cog-user-find>
 </div>

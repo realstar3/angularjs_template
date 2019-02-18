@@ -4,7 +4,9 @@
             templateUrl: './components/user/user-grid.html',
             bindings:{
                 keyword: '=',
-                value: '='
+                value: '=',
+                subject: '=',
+
             }
         })
 

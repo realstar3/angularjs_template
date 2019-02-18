@@ -4,6 +4,7 @@ angular
         templateUrl: '/components/user/user-search.html',
         bindings:{
             value: '=',
+            subject:'='
 
         },
 
