@@ -3,10 +3,24 @@ angular
     .component('cogDashboard', {
         templateUrl: '/components/dashboard/cog-dashboard.html'
     })
-    .controller('DashCtrl', function ($scope, $state) {
-        $scope.clicked = function () {
-            // alert('Worked!');
-            $state.go('sample')
+    .controller('DashCtrl', function ($ocLazyLoad, $scope, $state) {
+        $scope.sample_clicked = function () {
+            $ocLazyLoad.load([
+                'components/sample/sample.config.js',
+
+            ]).then(function () {
+                $state.go('sample')
+            });
+
+        };
+        $scope.users_clicked = function () {
+            $ocLazyLoad.load([
+
+                'components/user/user.config.js',
+            ]).then(function () {
+                $state.go('user')
+            });
+
         };
 
     })
