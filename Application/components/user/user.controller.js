@@ -10,7 +10,6 @@
 
     function UserCtrl($scope, $mdSidenav) {
 
-
         this.data = "";
         this.subject = "";
         this.searchString = '';
