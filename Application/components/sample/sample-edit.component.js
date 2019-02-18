@@ -4,7 +4,7 @@ angular
     .component('cogSampleEdit', {
         templateUrl: '/components/sample/sample-edit.dialog.html',
         bindings: {
-            id: '<'
+            // id: '<'
         }
     });
 

@@ -43,8 +43,7 @@
                 $scope.accordionA.expand(0)
 
             }
-        }
-
+        };
 
 
         // $rootScope.rootSearchString = "test";
@@ -74,9 +73,14 @@
             $http.get(url).then(
                 function (fieldList) {
                     var keys = Object.keys(fieldList.data[0]);
+                    // for( var i = 0; i < keys.length; i++){
+                    //     if ( keys[i] === 'id') {
+                    //         keys.splice(i, 1);
+                    //     }
+                    // }
                     $mdToast.show(
                         $mdToast.simple()
-                            .textContent('json file is read successfully.')
+                            .textContent('GET method is performed successfully.')
                             .hideDelay(3000))
                         .then(
                             function () {
@@ -101,7 +105,6 @@
                             });
                     }else{
                         fieldList.keys = keys;
-                        fieldList.data.formFields = fieldList.data;
                         sc.$parent.$ctrl.value = fieldList;
                         // $rootScope.$emit("getSearchResults", fieldList.data, keys);
                         $mdSidenav('right').toggle();
@@ -153,16 +156,24 @@
         };
         var sc = $scope;
 
-        $scope.editComment = function (event, row_number, col_key) {
+        $scope.editComment = function (event, id, col_key) {
             event.stopPropagation(); // in case autoselect is enabled
-            var c = sc.$parent.$ctrl.value.data.formFields[row_number][col_key];
+            event.stopPropagation(); // in case autoselect is enabled
+
+            var record = ''
+            for (var i=0; i< sc.$parent.$ctrl.value.data.length; i++){
+                if (sc.$parent.$ctrl.value.data[i]['id'] === id){
+                    record = sc.$parent.$ctrl.value.data[i]
+
+                }
+            };
 
             var editDialog = {
-                modelValue: sc.$parent.$ctrl.value.data.formFields[row_number][col_key],
+                modelValue: record[col_key],
                 placeholder: 'Edit a field',
                 save: function (input) {
 
-                    sc.$parent.$ctrl.value.data.formFields[row_number][col_key] = input.$modelValue;
+                    record[col_key] = input.$modelValue;
                 },
                 targetEvent: event,
                 title: 'Edit a field',
@@ -189,57 +200,60 @@
         };
 
 
-        $scope.showEditDialog = function (event, sampleSelected, id) {
+        $scope.showEditDialog = function (event, sampleSelected, keys) {
+            $scope.sampleSelected = sampleSelected;
+            $scope.keys = keys;
             $mdDialog.show({
                 clickOutsideToClose: true,
                 scope: $scope,        // use parent scope in template
                 preserveScope: true,
                 controller: EditCtrl,
-                locals: {id: id, sampleSelected: sampleSelected},
+                locals: { sampleSelected: sampleSelected, keys: keys,},
                 templateUrl: '/components/sample/sample-edit.dialog.html'
             });
         };
 
-        $scope.showAddDialog = function (event) {
+        $scope.showAddDialog = function (event, keys) {
             $scope.formField = '';
+            $scope.keys = keys;
             $mdDialog.show({
                 clickOutsideToClose: true,
                 scope: $scope,        // use parent scope in template
                 preserveScope: true,
                 controller: AddCtrl,
-                locals: {formField: $scope.formField},
+                locals: {formField: $scope.formField, keys: $scope.keys},
                 templateUrl: '/components/sample/sample-add.dialog.html'
             });
         };
 
-        $scope.toggleLimitOptions = function () {
-            $scope.limitOptions = $scope.limitOptions ? undefined : [5, 10, 15];
-        };
-        $scope.onPaginate = function(page, limit) {
-            // console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
-            // console.log('Page: ' + page + ' Limit: ' + limit);
-
-            $scope.promise = $timeout(function () {
-
-            }, 2000);
-        };
-        $scope.logItem = function (item) {
-            // console.log(item.name, 'was selected');
-        };
-
-        $scope.loadStuff = function () {
-            $scope.promise = $timeout(function () {
-
-            }, 2000);
-        };
-
-        $scope.logOrder = function(order) {
-            $scope.promise = $timeout(function () {
-                $http.get('/components/sample/sample.json').then(function (fieldList) {
-                    $scope.fieldList = fieldList.data;
-                });
-            }, 2000);
-        };
+        // $scope.toggleLimitOptions = function () {
+        //     $scope.limitOptions = $scope.limitOptions ? undefined : [5, 10, 15];
+        // };
+        // $scope.onPaginate = function(page, limit) {
+        //     // console.log('Scope Page: ' + $scope.query.page + ' Scope Limit: ' + $scope.query.limit);
+        //     // console.log('Page: ' + page + ' Limit: ' + limit);
+        //
+        //     $scope.promise = $timeout(function () {
+        //
+        //     }, 2000);
+        // };
+        // $scope.logItem = function (item) {
+        //     // console.log(item.name, 'was selected');
+        // };
+        //
+        // $scope.loadStuff = function () {
+        //     $scope.promise = $timeout(function () {
+        //
+        //     }, 2000);
+        // };
+        //
+        // $scope.logOrder = function(order) {
+        //     $scope.promise = $timeout(function () {
+        //         $http.get('/components/sample/sample.json').then(function (fieldList) {
+        //             $scope.fieldList = fieldList.data;
+        //         });
+        //     }, 2000);
+        // };
 
         $scope.showDeleteConfirmationDialog = function(event, id){
             $mdDialog.show({
@@ -266,15 +280,16 @@
             $mdDialog.hide();
         }
     }
-    function EditCtrl($ocLazyLoad, $scope, $mdDialog, id, sampleSelected) {
-        $scope.id = id;
+    function EditCtrl($ocLazyLoad, $scope, $mdDialog, sampleSelected, keys) {
+
         $scope.sampleSelected = sampleSelected;
-        $scope.closeDialog = function() {
+        $scope.cancel = function() {
             $mdDialog.hide();
         }
-        $scope.displayPrevious = function(accordion, number) {
+        $scope.save= function(sampleSelected) {
             $mdDialog.hide();
         }
+
     }
     function AddCtrl($ocLazyLoad, $scope, $mdDialog) {
 
