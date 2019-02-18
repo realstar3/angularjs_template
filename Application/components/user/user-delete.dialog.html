@@ -1,0 +1,29 @@
+<!-- delete record - dialog
+    Inputs: get record key id from table edit
+    On delete refresh table list  - can be in angular only no need to call database  api
+-->
+
+        <md-dialog flex-gt-md="40" aria-label="delete sample" class="md-whiteframe-8dp cog-dialog-layout">
+            <md-toolbar>
+                <div class="md-toolbar-tools">
+                    <h2>Delete Sample</h2>
+                    <span flex></span>
+                    <md-button class="cog-transparent-btn" ng-click="closeDialog()">
+                        <md-icon>cancel</md-icon>
+                    </md-button>
+                </div>
+            </md-toolbar>
+            <md-dialog-content layout="row" flex-gt-xs="66">
+                <div hide-xs layout-padding>
+                    <img ng-src="//res.cloudinary.com/cogran/image/upload/c_scale,h_200,q_10,w_200/v1490853160/bird-1773631_640.png" alt="login logo" />
+                </div>
+                <div class="md-dialog-content">
+                    <br/>
+                    <p><b>Are you sure you want to delete 'ID = {{id}}'  row?</b></p>
+                    <br/>
+                    <md-button ng-click="closeDialog(id, 'y')" class="md-raised md-primary">Yes</md-button>
+                    <md-button ng-click="closeDialog(id, 'n')" class="md-raised md-primary">No</md-button>
+                </div>
+            </md-dialog-content>
+        </md-dialog>
+
