@@ -22,6 +22,15 @@ angular
             });
 
         };
+        $scope.albumns_clicked = function () {
+            $ocLazyLoad.load([
+
+                'components/album/user.config.js',
+            ]).then(function () {
+                $state.go('album')
+            });
+
+        };
 
     })
 ;

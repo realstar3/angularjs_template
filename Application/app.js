@@ -49,6 +49,29 @@ var app = angular.module('cogranApp', ['ngAnimate','ngMaterial','ui.router', 'ng
 
 
                         ]
+                    },
+                    { // Set modules initially
+                        name: 'album', // State1 module
+                        files: [
+                            'https://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.min.js',
+                            'https://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.css',
+
+                            'https://www.cogran.io/assets/css/v-accordion-min.css',
+                            'https://lukaszwatroba.github.io/v-accordion/dist/v-accordion.min.js',
+
+                            'components/album/user.module.js',
+                            'components/album/user.component.js',
+                            'components/album/user.controller.js',
+
+                            'components/album/user-add.component.js',
+                            'components/album/user-delete.component.js',
+                            'components/album/user-edit.component.js',
+                            'components/album/user-grid.component.js',
+                            'components/album/album-grid.component.js',
+                            'components/album/user-search.component.js',
+
+
+                        ]
                     }
                 ]
             });
