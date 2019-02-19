@@ -63,7 +63,7 @@
         var sc = $scope;
         $scope.applyFilters = function(){
             sc.$parent.$ctrl.subject = sc.selectedForms;
-            let url  = 'http://54.153.92.80:3001/';
+            let url  = 'https://www.brandonsport.com/';
 
             if(sc.selectedForms !== undefined){
                 url = url + sc.selectedForms;
@@ -175,7 +175,7 @@
 
                     record[col_key] = input.$modelValue;
                     //** PUT Method **
-                    let url  = 'http://54.153.92.80:3001/' + sc.$parent.$ctrl.subject + "/" + record.id;
+                    let url  = 'https://www.brandonsport.com/' + sc.$parent.$ctrl.subject + "/" + record.id;
                     let config = {headers: { 'Content-Type': 'application/json; charset=UTF-8'}};
                     $http.put(url, record, config)
                         .then(function (response) {
@@ -184,7 +184,7 @@
                                 $mdToast.simple()
                                     .textContent(response.statusText)
                                     .hideDelay(3000))
-                            $http.get("http://54.153.92.80:3001/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
+                            $http.get("https://www.brandonsport.com/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
                                 var keys = Object.keys(fieldList.data[0]);
                                 fieldList.keys = keys;
                                 sc.$parent.$ctrl.value = fieldList;
@@ -270,7 +270,7 @@
         var sc = $scope
         $scope.closeDialog = function(id, feedback) {
             if(feedback==='y'){
-                let url  = 'http://54.153.92.80:3001/' + sc.$parent.$ctrl.subject+"/" + id;
+                let url  = 'https://www.brandonsport.com/' + sc.$parent.$ctrl.subject+"/" + id;
                 let config = {headers: { 'Content-Type': 'application/json; charset=UTF-8'}};
                 $http.delete(url)
                     .then(function (response) {
@@ -278,7 +278,7 @@
                             $mdToast.simple()
                                 .textContent(response.statusText)
                                 .hideDelay(3000))
-                        $http.get("http://54.153.92.80:3001/"+sc.$parent.$ctrl.subject).then(function (fieldList) {
+                        $http.get("https://www.brandonsport.com/"+sc.$parent.$ctrl.subject).then(function (fieldList) {
                             var keys = Object.keys(fieldList.data[0]);
                             fieldList.keys = keys;
                             sc.$parent.$ctrl.value = fieldList;
@@ -307,7 +307,7 @@
         }
         var sc = $scope;
         $scope.save= function(selectedRecord) {
-            let url  = 'http://54.153.92.80:3001/' + sc.$parent.$ctrl.subject+"/" + selectedRecord.id;
+            let url  = 'https://www.brandonsport.com/' + sc.$parent.$ctrl.subject+"/" + selectedRecord.id;
             let config = {headers: { 'Content-Type': 'application/json; charset=UTF-8'}};
             selectedRecord['id'] =  parseInt(selectedRecord['id'], 10);
             $http.put(url, JSON.stringify(selectedRecord), config).then(function (response) {
@@ -315,7 +315,7 @@
                     $mdToast.simple()
                         .textContent(response.statusText)
                         .hideDelay(3000))
-                $http.get("http://54.153.92.80:3001/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
+                $http.get("https://www.brandonsport.com/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
                     var keys = Object.keys(fieldList.data[0]);
                     fieldList.keys = keys;
                     sc.$parent.$ctrl.value = fieldList;
@@ -327,7 +327,7 @@
                     $mdToast.simple()
                         .textContent(response.statusText)
                         .hideDelay(3000))
-                $http.get("http://54.153.92.80:3001/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
+                $http.get("https://www.brandonsport.com/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
                     var keys = Object.keys(fieldList.data[0]);
                     fieldList.keys = keys;
                     sc.$parent.$ctrl.value = fieldList;
@@ -346,7 +346,7 @@
 
             record['id'] =  parseInt(record['id'], 10);
 
-            let url  = 'http://54.153.92.80:3001/' + sc.$parent.$ctrl.subject;
+            let url  = 'https://www.brandonsport.com/' + sc.$parent.$ctrl.subject;
             let config = {headers: { 'Content-Type': 'application/json; charset=UTF-8'}};
             $http.post(url, record, config)
                 .then(function (response) {
@@ -354,7 +354,7 @@
                         $mdToast.simple()
                             .textContent(response.statusText)
                             .hideDelay(3000))
-                    $http.get("http://54.153.92.80:3001/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
+                    $http.get("https://www.brandonsport.com/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
                         var keys = Object.keys(fieldList.data[0]);
                         fieldList.keys = keys;
                         sc.$parent.$ctrl.value = fieldList;
