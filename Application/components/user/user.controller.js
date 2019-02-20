@@ -12,7 +12,6 @@
         $scope.dispMessage = 'users';
         this.data = "";
         this.searchString = '';
-        $scope.header_string = "Field List";
         $scope.stopCollapsing = false;
         $scope.toggleCollapse = function(){
 
@@ -62,14 +61,16 @@
         var sc = $scope;
         $scope.applyFilters = function(){
             sc.$parent.$ctrl.subject = "users";
-            if(sc.category ==='all')sc.keyword='';
-            sc.$parent.$ctrl.cname = sc.category;
-            sc.$parent.$ctrl.ckeyword = sc.keyword;
+
+            sc.$parent.$ctrl.category = "name";
+            sc.$parent.$ctrl.keyword = sc.keyword;
+
             let url  = 'https://www.brandonsport.com/';
-
-            url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.cname + "=" + sc.$parent.$ctrl.ckeyword;
-
-
+            if(sc.$parent.$ctrl.keyword===''||sc.$parent.$ctrl.keyword===undefined){
+                url = url + sc.$parent.$ctrl.subject ;
+            }else{
+                url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.category + "=" + sc.$parent.$ctrl.keyword;
+            }
             $http.get(url).then(
                 function (fieldList) {
                     $mdToast.show(
@@ -132,7 +133,7 @@
         $scope.limitOptions = [5, 10, 15, {
             label: 'All',
             value: function () {
-                return $scope.formFields ? $scope.formFields.length : 0;
+                return $scope.$parent.$ctrl.value.data ? $scope.$parent.$ctrl.value.data.length : 0;
             }
         }];
 
@@ -171,7 +172,11 @@
                                     .textContent(response.statusText)
                                     .hideDelay(3000));
                             let url  = 'https://www.brandonsport.com/';
-                            url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.cname + "=" + sc.$parent.$ctrl.ckeyword;
+                            if(sc.$parent.$ctrl.keyword===''||sc.$parent.$ctrl.keyword===undefined){
+                                url = url + sc.$parent.$ctrl.subject ;
+                            }else{
+                                url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.category + "=" + sc.$parent.$ctrl.keyword;
+                            }
                             $http.get(url).then(function (fieldList) {
                                 if (fieldList.data == null || fieldList.data.length<1){
                                     sc.$parent.$ctrl.value = []
@@ -271,7 +276,11 @@
 
 
                         let url  = 'https://www.brandonsport.com/';
-                        url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.cname + "=" + sc.$parent.$ctrl.ckeyword;
+                        if(sc.$parent.$ctrl.keyword===''||sc.$parent.$ctrl.keyword===undefined){
+                            url = url + sc.$parent.$ctrl.subject ;
+                        }else{
+                            url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.category + "=" + sc.$parent.$ctrl.keyword;
+                        }
                         $http.get(url).then(function (fieldList) {
                             if (fieldList.data == null || fieldList.data.length<1){
                                 sc.$parent.$ctrl.value = []
@@ -315,7 +324,11 @@
                         .hideDelay(3000));
 
                 let url  = 'https://www.brandonsport.com/';
-                url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.cname + "=" + sc.$parent.$ctrl.ckeyword;
+                if(sc.$parent.$ctrl.keyword===''||sc.$parent.$ctrl.keyword===undefined){
+                    url = url + sc.$parent.$ctrl.subject ;
+                }else{
+                    url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.category + "=" + sc.$parent.$ctrl.keyword;
+                }
                 $http.get(url).then(function (fieldList) {
                     if (fieldList.data == null || fieldList.data.length<1){
                         sc.$parent.$ctrl.value = []
@@ -333,7 +346,11 @@
                         .textContent(response.statusText)
                         .hideDelay(3000))
                 let url  = 'https://www.brandonsport.com/';
-                url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.cname + "=" + sc.$parent.$ctrl.ckeyword;
+                if(sc.$parent.$ctrl.keyword===''||sc.$parent.$ctrl.keyword===undefined){
+                    url = url + sc.$parent.$ctrl.subject ;
+                }else{
+                    url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.category + "=" + sc.$parent.$ctrl.keyword;
+                }
                 $http.get(url).then(function (fieldList) {
                     if(fieldList.length)
                     var keys = Object.keys(fieldList.data[0]);
@@ -363,7 +380,11 @@
                             .textContent(response.statusText)
                             .hideDelay(3000))
                     let url  = 'https://www.brandonsport.com/';
-                    url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.cname + "=" + sc.$parent.$ctrl.ckeyword;
+                    if(sc.$parent.$ctrl.keyword===''||sc.$parent.$ctrl.keyword===undefined){
+                        url = url + sc.$parent.$ctrl.subject ;
+                    }else{
+                        url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.category + "=" + sc.$parent.$ctrl.keyword;
+                    }
                     $http.get(url).then(function (fieldList) {
                         if (fieldList.data == null || fieldList.data.length<1){
                             sc.$parent.$ctrl.value = []

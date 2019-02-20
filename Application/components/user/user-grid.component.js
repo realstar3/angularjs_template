@@ -3,11 +3,11 @@
         .component('cogUserGrid', {
             templateUrl: './components/user/user-grid.html',
             bindings:{
-                keyword: '=',
+                tablekeyword: '=',
                 value: '=',
                 subject: '=',
-                ckeyword:'=',
-                cname:'='
+                keyword:'=',
+                category:'='
 
             }
         })

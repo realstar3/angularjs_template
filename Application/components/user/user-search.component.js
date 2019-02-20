@@ -5,8 +5,8 @@ angular
         bindings:{
             value: '=',
             subject:'=',
-            cname:'=',
-            ckeyword:'='
+            category:'=',
+            keyword:'='
 
         },
 
