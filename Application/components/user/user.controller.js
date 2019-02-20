@@ -62,6 +62,7 @@
         var sc = $scope;
         $scope.applyFilters = function(){
             sc.$parent.$ctrl.subject = "users";
+            if(sc.category ==='all')sc.keyword='';
             sc.$parent.$ctrl.cname = sc.category;
             sc.$parent.$ctrl.ckeyword = sc.keyword;
             let url  = 'https://www.brandonsport.com/';
@@ -74,7 +75,7 @@
                     $mdToast.show(
                         $mdToast.simple()
                             .textContent('GET method is performed successfully.')
-                            .hideDelay(3000))
+                            .hideDelay(3000));
 
 
                     if (fieldList.data == null || fieldList.data.length<1){
@@ -115,7 +116,7 @@
 
     function UserGridCtrl($ocLazyLoad, $http, $mdDialog, $mdToast, $mdEditDialog, $q, $timeout,$scope) {
         this.subject = "";
-        var vm  = this;
+
         $scope.options = {
             rowSelection: true,
             multiSelect: true,

@@ -15,8 +15,7 @@
                             class="md-accent md-raised">Search
                         </md-button>
                         <mat-form-field class="example-full-width">
-                            <input matInput placeholder="Enter category search string" ng-show="category!='all'"
-                                   ng-model="keyword" >
+
                         </mat-form-field>
                         <md-input-container>
 
@@ -26,6 +25,8 @@
                                 <md-option value="all" selected="true">all</md-option>
                             </md-select>
                         </md-input-container>
+                        <input matInput placeholder="Enter category search string" ng-show="category!='all'"
+                               ng-model="keyword" >
 
                     </div>
                 </div>
