@@ -1,5 +1,5 @@
 angular
-    .module('userApp')
+    .module('albumApp')
     .component('cogUserFind', {
         templateUrl: '/components/album/user-search.html',
         bindings:{

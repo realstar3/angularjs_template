@@ -22,31 +22,33 @@
             <v-accordion id="accordionA" class="vAccordion--default" ng-hide="Sctl.data===''"
                          control="accordionA" onexpand="expandCallback(index, id)"
                          oncollapse="collapseCallback(index, id)">
-                <v-pane id="pane1" ng-hide="Sctl.searchString===''">
+                <v-pane id="pane1" expanded>
 
                     <v-pane-header id="samplePane-header" aria-controls="samplePane-content" >
-
-                        Select or edit Results
+                        {{dispMessage}}
                     </v-pane-header>
 
                     <v-pane-content id="samplePane-content" aria-labelledby="samplePane-header">
-                        <cog-user-grid keyword="Sctl.searchString" value="Sctl.data"></cog-user-grid>
+                        <cog-user-grid keyword="Sctl.searchString" value="Sctl.data" subject="Sctl.subject"
+                                       ckeyword="Sctl.categoryKeyword"
+                                       cname="Sctl.categoryName"></cog-user-grid>
                     </v-pane-content>
                 </v-pane>
 
-                <v-pane id="pane2" expanded ng-hide="Sctl.searchString!==''">
-                    <v-pane-header id="samplePane2-header" aria-controls="samplePane2-content">
-                        Field List
-                    </v-pane-header>
-                    <v-pane-content id="samplePane2-content" aria-controls="samplePane2-header">
-                        <cog-user-grid value="Sctl.data" subject="Sctl.subject"></cog-user-grid>
-                    </v-pane-content>
-                </v-pane>
+                <!--<v-pane id="pane2" expanded ng-hide="Sctl.searchString!==''">-->
+                    <!--<v-pane-header id="samplePane2-header" aria-controls="samplePane2-content">-->
+                        <!--Field List-->
+                    <!--</v-pane-header>-->
+                    <!--<v-pane-content id="samplePane2-content" aria-controls="samplePane2-header">-->
+                        <!--<cog-user-grid value="Sctl.data" subject="Sctl.subject" categoryKeyword="Sctl.categoryKeyword"-->
+                                       <!--categoryName="Sctl.categoryName"></cog-user-grid>-->
+                    <!--</v-pane-content>-->
+                <!--</v-pane>-->
 
 
             </v-accordion>
 
         </div>
     </div>
-    <cog-user-find value="Sctl.data" subject="Sctl.subject"></cog-user-find>
+    <cog-user-find value="Sctl.data" subject="Sctl.subject" cname="Sctl.categoryName" ckeyword="Sctl.categoryKeyword"></cog-user-find>
 </div>

@@ -9,13 +9,10 @@
         .controller('UserGridCtrl', UserGridCtrl);
 
     function UserCtrl($scope, $mdSidenav) {
-
+        $scope.dispMessage = 'users';
         this.data = "";
-        this.subject = "";
         this.searchString = '';
-        $scope.header_string = "Field List"
-
-
+        $scope.header_string = "Field List";
         $scope.stopCollapsing = false;
         $scope.toggleCollapse = function(){
 
@@ -36,11 +33,13 @@
 
         $scope.changedSearch = function(){
             if($scope.Sctl.searchString===''){
-                $scope.accordionA.expand(1)
+                $scope.dispMessage = $scope.Sctl.subject;
+                $scope.accordionA.expand(0)
             }
             else
             {
-                $scope.accordionA.expand(0)
+                $scope.dispMessage = 'Select or edit Results';
+                // $scope.accordionA.expand(0)
 
             }
         }
@@ -58,41 +57,25 @@
 
     function UserEventCtrl( $ocLazyLoad, $scope, $rootScope, $http, $mdSidenav, $mdToast, $log) {
 
-        this.serverfakeerror=''
+        $scope.serverfakeerror='';
         var ctrl = this;
         var sc = $scope;
         $scope.applyFilters = function(){
-            sc.$parent.$ctrl.subject = sc.selectedForms;
+            sc.$parent.$ctrl.subject = "users";
+            sc.$parent.$ctrl.cname = sc.category;
+            sc.$parent.$ctrl.ckeyword = sc.keyword;
             let url  = 'https://www.brandonsport.com/';
 
-            if(sc.selectedForms !== undefined){
-                url = url + sc.selectedForms;
-            }else {
-                url = url + "users";
-                sc.$parent.$ctrl.subject = "users";
-            }
+            url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.cname + "=" + sc.$parent.$ctrl.ckeyword;
+
 
             $http.get(url).then(
                 function (fieldList) {
-                    var keys = Object.keys(fieldList.data[0]);
-                    // for( var i = 0; i < keys.length; i++){
-                    //     if ( keys[i] === 'id') {
-                    //         keys.splice(i, 1);
-                    //     }
-                    // }
-
                     $mdToast.show(
                         $mdToast.simple()
                             .textContent('GET method is performed successfully.')
                             .hideDelay(3000))
-                        // .then(
-                        //     function () {
-                        //         $log.log('Toast dismissed.');
-                        //     }
-                        // )
-                        // .catch(function() {
-                        //     $log.log('Toast failed or was forced to close early by another toast.');
-                        // });
+
 
                     if (fieldList.data == null || fieldList.data.length<1){
 
@@ -107,7 +90,9 @@
                                 $log.log('Toast failed or was forced to close early by another toast.');
                             });
                     }else{
-                        ctrl.serverfakeerror = ''
+                        sc.serverfakeerror = ''
+                        var keys = Object.keys(fieldList.data[0]);
+
                         fieldList.keys = keys;
 
                         sc.$parent.$ctrl.value = fieldList;
@@ -116,7 +101,7 @@
                     }
                 })
                 .catch(function (err) {
-                    ctrl.serverfakeerror= 'error: ' + err.status + ' : ' + err.statusText;
+                    sc.serverfakeerror= 'error: ' + err.status + ' : ' + err.statusText;
                     $mdToast.show(
                         $mdToast.simple()
                             .textContent('COG-1000 no records found, please try another search')
@@ -160,7 +145,7 @@
 
         $scope.editComment = function (event, id, col_key) {
             event.stopPropagation(); // in case autoselect is enabled
-
+            if(col_key ==='id') return;
             var record = ''
             for (var i=0; i< sc.$parent.$ctrl.value.data.length; i++){
                 if (sc.$parent.$ctrl.value.data[i]['id'] === id){
@@ -183,14 +168,18 @@
                             $mdToast.show(
                                 $mdToast.simple()
                                     .textContent(response.statusText)
-                                    .hideDelay(3000))
-                            $http.get("https://www.brandonsport.com/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
+                                    .hideDelay(3000));
+                            let url  = 'https://www.brandonsport.com/';
+                            url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.cname + "=" + sc.$parent.$ctrl.ckeyword;
+                            $http.get(url).then(function (fieldList) {
+                                if (fieldList.data == null || fieldList.data.length<1){
+                                    sc.$parent.$ctrl.value = []
+                                    return
+                                }
                                 var keys = Object.keys(fieldList.data[0]);
                                 fieldList.keys = keys;
                                 sc.$parent.$ctrl.value = fieldList;
-
                             })
-
                         })
                         .catch(function (response) {
                             $mdToast.show(
@@ -278,7 +267,15 @@
                             $mdToast.simple()
                                 .textContent(response.statusText)
                                 .hideDelay(3000))
-                        $http.get("https://www.brandonsport.com/"+sc.$parent.$ctrl.subject).then(function (fieldList) {
+
+
+                        let url  = 'https://www.brandonsport.com/';
+                        url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.cname + "=" + sc.$parent.$ctrl.ckeyword;
+                        $http.get(url).then(function (fieldList) {
+                            if (fieldList.data == null || fieldList.data.length<1){
+                                sc.$parent.$ctrl.value = []
+                                return
+                            }
                             var keys = Object.keys(fieldList.data[0]);
                             fieldList.keys = keys;
                             sc.$parent.$ctrl.value = fieldList;
@@ -310,12 +307,19 @@
             let url  = 'https://www.brandonsport.com/' + sc.$parent.$ctrl.subject+"/" + selectedRecord.id;
             let config = {headers: { 'Content-Type': 'application/json; charset=UTF-8'}};
             selectedRecord['id'] =  parseInt(selectedRecord['id'], 10);
-            $http.put(url, JSON.stringify(selectedRecord), config).then(function (response) {
+            $http.put(url, selectedRecord, config).then(function (response) {
                 $mdToast.show(
                     $mdToast.simple()
                         .textContent(response.statusText)
-                        .hideDelay(3000))
-                $http.get("https://www.brandonsport.com/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
+                        .hideDelay(3000));
+
+                let url  = 'https://www.brandonsport.com/';
+                url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.cname + "=" + sc.$parent.$ctrl.ckeyword;
+                $http.get(url).then(function (fieldList) {
+                    if (fieldList.data == null || fieldList.data.length<1){
+                        sc.$parent.$ctrl.value = []
+                        return
+                    }
                     var keys = Object.keys(fieldList.data[0]);
                     fieldList.keys = keys;
                     sc.$parent.$ctrl.value = fieldList;
@@ -327,7 +331,10 @@
                     $mdToast.simple()
                         .textContent(response.statusText)
                         .hideDelay(3000))
-                $http.get("https://www.brandonsport.com/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
+                let url  = 'https://www.brandonsport.com/';
+                url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.cname + "=" + sc.$parent.$ctrl.ckeyword;
+                $http.get(url).then(function (fieldList) {
+                    if(fieldList.length)
                     var keys = Object.keys(fieldList.data[0]);
                     fieldList.keys = keys;
                     sc.$parent.$ctrl.value = fieldList;
@@ -354,7 +361,13 @@
                         $mdToast.simple()
                             .textContent(response.statusText)
                             .hideDelay(3000))
-                    $http.get("https://www.brandonsport.com/" + sc.$parent.$ctrl.subject).then(function (fieldList) {
+                    let url  = 'https://www.brandonsport.com/';
+                    url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.cname + "=" + sc.$parent.$ctrl.ckeyword;
+                    $http.get(url).then(function (fieldList) {
+                        if (fieldList.data == null || fieldList.data.length<1){
+                            sc.$parent.$ctrl.value = []
+                            return
+                        }
                         var keys = Object.keys(fieldList.data[0]);
                         fieldList.keys = keys;
                         sc.$parent.$ctrl.value = fieldList;

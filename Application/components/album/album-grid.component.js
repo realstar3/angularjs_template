@@ -1,5 +1,5 @@
     angular
-        .module('userApp')
+        .module('albumApp')
         .component('cogAlbumGrid', {
             templateUrl: './components/album/album-grid.html',
             bindings:{

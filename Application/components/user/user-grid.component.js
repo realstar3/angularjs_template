@@ -6,6 +6,8 @@
                 keyword: '=',
                 value: '=',
                 subject: '=',
+                ckeyword:'=',
+                cname:'='
 
             }
         })

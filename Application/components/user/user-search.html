@@ -4,20 +4,26 @@
         <!--<h1 class="md-toolbar-tools">{{$ctrl.data}}</h1>-->
         <h1 class="md-toolbar-tools">Filter List By</h1>
     </md-toolbar>
-    <div layout-padding ng-controller="UserEventCtrl as ctrl">
+    <div layout-padding ng-controller="UserEventCtrl">
 
         <form>
             <div class="md-padding" ng-cloak >
                 <div>
                     <div layout="column">
-                        <span ng-message="serverError" class="label label-danger">{{ctrl.serverfakeerror}}</span>
+                        <span ng-message="serverError" class="label label-danger">{{serverfakeerror}}</span>
                         <md-button ng-init="SampleCtrl.showItemFetchProgressBar = true" ng-click="applyFilters()"
                             class="md-accent md-raised">Search
                         </md-button>
+                        <mat-form-field class="example-full-width">
+                            <input matInput placeholder="Enter category search string" ng-show="category!='all'"
+                                   ng-model="keyword" >
+                        </mat-form-field>
                         <md-input-container>
-                            <md-select ng-model="selectedForms" placeholder="Select Record">
-                                <md-option value="users">users</md-option>
-                                <md-option value="posts">posts</md-option>
+
+
+                            <md-select ng-model="category"  placeholder="Select Category">
+                                <md-option value="name">name</md-option>
+                                <md-option value="all" selected="true">all</md-option>
                             </md-select>
                         </md-input-container>
 

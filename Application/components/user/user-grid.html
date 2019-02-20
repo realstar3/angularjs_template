@@ -13,6 +13,7 @@
             <div class="md-toolbar-tools">
                 <!--<md-button style="background-color: darkgreen; color: white;">Sample Details-->
                 <!--</md-button>-->
+                <span>search:{{$ctrl.cname}}={{$ctrl.ckeyword}}</span>
                 <div flex></div>
                 <span></span>
                 <md-button class="md-icon-button" ng-click="showAddDialog($event, $ctrl.value.keys)">
@@ -31,7 +32,7 @@
                 <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
                     <tr md-row>
                         <th  md-column ><span>Action</span></th>
-                        <!--<th  md-column ><span>ID</span></th>-->
+
                         <th  ng-repeat="key in $ctrl.value.keys" md-column md-order-by='{{key}}'><span>{{key}}</span></th>
                     </tr>
                 </thead>
@@ -47,9 +48,7 @@
                                 <md-icon class="md-warn">delete</md-icon>
                             </span>
                         </td>
-                        <!--<td md-cell >-->
-                            <!--{{sampleSelected['id']}}-->
-                        <!--</td>-->
+
                         <td ng-repeat="key in $ctrl.value.keys" md-cell ng-click="editComment($event, sampleSelected.id, key)">
                             {{sampleSelected[key]}}
                         </td>

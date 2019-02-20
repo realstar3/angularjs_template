@@ -1,6 +1,6 @@
 (function(angular, undefined){
 
-    angular.module('userApp', ['ngAnimate', 'oc.lazyLoad', 'ngMaterial', 'md.data.table',  'ngSanitize', 'vAccordion',])
+    angular.module('albumApp', ['ngAnimate', 'oc.lazyLoad', 'ngMaterial', 'md.data.table',  'ngSanitize', 'vAccordion',])
         .controller('UserCtrl', UserCtrl)
         .controller('UserEventCtrl', UserEventCtrl)
         .controller('UserAddCtrl', UserAddCtrl)
