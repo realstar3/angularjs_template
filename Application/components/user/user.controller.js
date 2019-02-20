@@ -73,18 +73,14 @@
             }
             $http.get(url).then(
                 function (fieldList) {
-                    $mdToast.show(
-                        $mdToast.simple()
-                            .textContent('GET method is performed successfully.')
-                            .hideDelay(3000));
-
-
                     if (fieldList.data == null || fieldList.data.length<1){
-
+                        sc.$parent.$ctrl.value = [];
+                        $mdSidenav('right').toggle();
                         $mdToast.show(
                             $mdToast.simple()
                                 .textContent('COG-1000 no records found, please try another search')
                                 .hideDelay(3000))
+
                             .then(function() {
                                 $log.log('Toast dismissed.');
                             })
@@ -100,6 +96,10 @@
                         sc.$parent.$ctrl.value = fieldList;
                         // $rootScope.$emit("getSearchResults", fieldList.data, keys);
                         $mdSidenav('right').toggle();
+                        $mdToast.show(
+                            $mdToast.simple()
+                                .textContent('GET method is performed successfully.')
+                                .hideDelay(3000));
                     }
                 })
                 .catch(function (err) {
