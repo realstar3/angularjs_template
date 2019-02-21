@@ -1,31 +1,17 @@
-
 <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-is-open="true" md-component-id="right">
     <md-toolbar class="md-theme-light">
-        <!--<h1 class="md-toolbar-tools">{{$ctrl.data}}</h1>-->
         <h1 class="md-toolbar-tools">Filter List By</h1>
     </md-toolbar>
-    <div layout-padding ng-controller="UserEventCtrl">
-
+    <div layout-padding ng-controller="UserSearchCtrl">
         <form>
-            <div class="md-padding" ng-cloak >
+            <div class="md-padding" ng-cloak>
                 <div>
                     <div layout="column">
-                        <span ng-message="serverError" class="label label-danger">{{serverfakeerror}}</span>
-                        <md-button ng-init="userCtrl.showItemFetchProgressBar = true" ng-click="applyFilters()"
-                            class="md-accent md-raised">Search
+                        <span ng-message="serverError" class="label label-danger">{{serverError}}</span>
+                        <md-button ng-init="userCtrl.showItemFetchProgressBar = true" ng-click="applyFilters()" class="md-accent md-raised">Search
                         </md-button>
-
-                        <!--<md-input-container>-->
-
-
-                            <!--<md-select ng-model="category"  placeholder="Name" ng-show="false">-->
-                                <!--<md-option value="name">Select Name</md-option>-->
-                                <!--<md-option value="all">All</md-option>-->
-                            <!--</md-select>-->
-                        <!--</md-input-container>-->
-                        <input matInput placeholder="Name"
-                               ng-model="keyword" >
-
+                        <input matInput placeholder="Name" ng-model="name">
+                        <input matInput placeholder="Name" ng-model="ID">
                     </div>
                 </div>
             </div>

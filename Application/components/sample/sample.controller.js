@@ -2,7 +2,7 @@
 
     angular.module('sampleApp', ['ngAnimate', 'oc.lazyLoad', 'ngMaterial', 'md.data.table',  'ngSanitize', 'vAccordion',])
         .controller('SampleCtrl', SampleCtrl)
-        .controller('EventCtrl', EventCtrl)
+        .controller('SearchCtrl', SearchCtrl)
         .controller('AddCtrl', AddCtrl)
         .controller('DeleteCtrl', DeleteCtrl)
         .controller('EditCtrl', EditCtrl)
@@ -58,9 +58,9 @@
     }
 
 
-    function EventCtrl( $ocLazyLoad, $scope, $rootScope, $http, $mdSidenav, $mdToast, $log) {
+    function SearchCtrl( $ocLazyLoad, $scope, $rootScope, $http, $mdSidenav, $mdToast, $log) {
 
-        this.serverfakeerror=''
+        this.serverError=''
         var ctrl = this;
         var sc = $scope;
         $scope.applyFilters = function(){
@@ -111,7 +111,7 @@
                     }
                 })
                 .catch(function (err) {
-                    ctrl.serverfakeerror= 'error: ' + err.status + ' : ' + err.statusText;
+                    ctrl.serverError= 'error: ' + err.status + ' : ' + err.statusText;
                     $mdToast.show(
                         $mdToast.simple()
                             .textContent('COG-1000 no records found, please try another search')

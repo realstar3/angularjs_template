@@ -4,41 +4,35 @@
     Add button on top and bottom of form
 -->
 
-        <md-dialog flex-gt-md="40" aria-label="delete sample" class="md-whiteframe-8dp cog-dialog-layout">
-            <md-toolbar>
-                <div class="md-toolbar-tools">
-                    <h2>Add User</h2>
-                    <span flex></span>
-                    <md-button class="cog-transparent-btn" ng-click="closeDialog()">
-                        <md-icon>cancel</md-icon>
-                    </md-button>
-                </div>
-            </md-toolbar>
-            <md-dialog-content layout="row" flex-gt-xs="66">
-            <ng-form name="userAdd" novalidate>
-                <md-input-container  class="md-block">
-                    <label>ID</label>
-                    <input ng-readonly="false" type="text" ng-model="newRecord.id" name="field_add_id" id="field_add_id"
-                           aria-label="" />
-                    <div class="md-caption">Enter the ID </div>
-                </md-input-container>
-
-                <md-input-container  class="md-block">
-                    <label>Name</label>
-                    <input ng-readonly="false" type="text" ng-model="newRecord.name" name="field_add_name" id="field_add_name"
-                           aria-label="" />
-                    <div class="md-caption">Enter the Name </div>
-                </md-input-container>
-
-
-                <div layout="column " class="layout-column ">
-                    <md-button cogvalidate="" ng-click="addRecord(newRecord)" class="md-raised md-primary md-block md-DarkBlue-theme ">Add</md-button>
-                    <md-button ng-click="cancel() " class="md-primary md-warn md-block md-DarkBlue-theme ">Close and Back
-                        to select user</md-button>
-                </div>
-            </ng-form>
-            </md-dialog-content>
-        </md-dialog>
-
-
- 
+<md-dialog flex-gt-md="40" aria-label="delete sample" class="md-whiteframe-8dp cog-dialog-layout">
+    <md-toolbar>
+        <div class="md-toolbar-tools">
+            <h2>Add User</h2>
+            <span flex></span>
+            <md-button class="cog-transparent-btn" ng-click="closeDialog()">
+                <md-icon>cancel</md-icon>
+            </md-button>
+        </div>
+    </md-toolbar>
+    <md-dialog-content layout="row" flex-gt-xs="66">
+        <ng-form name="userAdd" novalidate>
+            <md-input-container class="md-block">
+                <label>ID</label>
+                <input ng-readonly="false" type="text" ng-model="newRecord.id" name="field_add_id" id="field_add_id"
+                    aria-label="" />
+                <div class="md-caption">Enter the ID </div>
+            </md-input-container>
+            <md-input-container class="md-block">
+                <label>Name</label>
+                <input ng-readonly="false" type="text" ng-model="newRecord.name" name="field_add_name" id="field_add_name"
+                    aria-label="" />
+                <div class="md-caption">Enter the Name </div>
+            </md-input-container>
+            <div layout="column " class="layout-column ">
+                <md-button cogvalidate="" ng-click="addRecord(newRecord)" class="md-raised md-primary md-block md-DarkBlue-theme ">Add</md-button>
+                <md-button ng-click="cancel() " class="md-primary md-warn md-block md-DarkBlue-theme ">Close and Back
+                    to select user</md-button>
+            </div>
+        </ng-form>
+    </md-dialog-content>
+</md-dialog>

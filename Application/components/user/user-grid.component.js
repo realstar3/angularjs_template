@@ -2,14 +2,12 @@
         .module('userApp')
         .component('cogUserGrid', {
             templateUrl: './components/user/user-grid.html',
-            bindings:{
+            bindings: {
                 tablekeyword: '=',
                 value: '=',
                 subject: '=',
-                keyword:'=',
-                category:'='
-
+                keyword: '=',
+                category: '='
             },
             controllerAs: 'userGridCtrl'
         })
-

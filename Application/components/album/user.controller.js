@@ -2,7 +2,7 @@
 
     angular.module('albumApp', ['ngAnimate', 'oc.lazyLoad', 'ngMaterial', 'md.data.table',  'ngSanitize', 'vAccordion',])
         .controller('UserCtrl', UserCtrl)
-        .controller('UserEventCtrl', UserEventCtrl)
+        .controller('UserSearchCtrl', UserSearchCtrl)
         .controller('UserAddCtrl', UserAddCtrl)
         .controller('UserDeleteCtrl', UserDeleteCtrl)
         .controller('UserEditCtrl', UserEditCtrl)
@@ -57,9 +57,9 @@
     }
 
 
-    function UserEventCtrl( $ocLazyLoad, $scope, $rootScope, $http, $mdSidenav, $mdToast, $log) {
+    function UserSearchCtrl( $ocLazyLoad, $scope, $rootScope, $http, $mdSidenav, $mdToast, $log) {
 
-        this.serverfakeerror=''
+        this.serverError=''
         var ctrl = this;
         var sc = $scope;
         $scope.applyFilters = function(){
@@ -108,7 +108,7 @@
                                 $log.log('Toast failed or was forced to close early by another toast.');
                             });
                     }else{
-                        ctrl.serverfakeerror = ''
+                        ctrl.serverError = ''
                         fieldList.keys = keys;
 
                         sc.$parent.$ctrl.value = fieldList;
@@ -117,7 +117,7 @@
                     }
                 })
                 .catch(function (err) {
-                    ctrl.serverfakeerror= 'error: ' + err.status + ' : ' + err.statusText;
+                    ctrl.serverError= 'error: ' + err.status + ' : ' + err.statusText;
                     $mdToast.show(
                         $mdToast.simple()
                             .textContent('COG-1000 no records found, please try another search')

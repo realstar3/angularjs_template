@@ -7,9 +7,7 @@ angular
             subject:'=',
             category:'=',
             keyword:'='
-
         },
-        controllerAs:'userEventCtrl'
-
+        controllerAs:'userSearchCtrl'
     });
 
