@@ -215,7 +215,7 @@
 
 
         $scope.showEditDialog = function (event, selectedRecord) {
-            $scope.selectedRecord = selectedRecord;
+            $scope.selectedRecord = angular.copy(selectedRecord);
             $mdDialog.show({
                 clickOutsideToClose: true,
                 scope: $scope,        // use parent scope in template
@@ -298,13 +298,15 @@
             }
             $mdDialog.hide();
         }
-    }
-    function UserEditCtrl($ocLazyLoad, $scope,$http, $mdToast,  $mdDialog, selectedRecord) {
-
-        $scope.selectedRecord = selectedRecord;
         $scope.cancel = function() {
             $mdDialog.hide();
         }
+        $scope.closeDialog = function () {
+            $mdDialog.hide();
+        }
+    }
+    function UserEditCtrl($ocLazyLoad, $scope,$http, $mdToast,  $mdDialog, selectedRecord) {
+
         var sc = $scope;
         $scope.save= function(selectedRecord) {
             let url  = 'https://www.brandonsport.com/' + sc.$parent.userGridCtrl.subject+"/" + selectedRecord.id;
@@ -357,6 +359,13 @@
             $mdDialog.hide();
 
         }
+        $scope.cancel = function() {
+            $mdDialog.hide();
+
+        }
+        $scope.closeDialog = function () {
+            $mdDialog.hide();
+        }
     }
     function UserAddCtrl($ocLazyLoad, $http, $mdToast, $scope, $mdDialog,newRecord) {
         var sc = $scope;
@@ -399,6 +408,10 @@
             $mdDialog.hide();
         }
         $scope.cancel = function() {
+
+            $mdDialog.hide();
+        }
+        $scope.closeDialog = function () {
             $mdDialog.hide();
         }
 
