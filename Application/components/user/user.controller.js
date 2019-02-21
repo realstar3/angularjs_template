@@ -31,8 +31,8 @@
         };
 
         $scope.changedSearch = function(){
-            if($scope.Sctl.searchString===''){
-                $scope.dispMessage = $scope.Sctl.subject;
+            if($scope.userCtrl.searchString===''){
+                $scope.dispMessage = $scope.userCtrl.subject;
                 $scope.accordionA.expand(0)
             }
             else
@@ -57,24 +57,23 @@
     function UserEventCtrl( $ocLazyLoad, $scope, $rootScope, $http, $mdSidenav, $mdToast, $log) {
 
         $scope.serverfakeerror='';
-        var ctrl = this;
+
         var sc = $scope;
         $scope.applyFilters = function(){
-            sc.$parent.$ctrl.subject = "users";
-
-            sc.$parent.$ctrl.category = "name";
-            sc.$parent.$ctrl.keyword = sc.keyword;
+            sc.$parent.userEventCtrl.subject = "users";
+            sc.$parent.userEventCtrl.category = "name";
+            sc.$parent.userEventCtrl.keyword = sc.keyword;
 
             let url  = 'https://www.brandonsport.com/';
-            if(sc.$parent.$ctrl.keyword===''||sc.$parent.$ctrl.keyword===undefined){
-                url = url + sc.$parent.$ctrl.subject ;
+            if(sc.$parent.userEventCtrl.keyword===''||sc.$parent.userEventCtrl.keyword===undefined){
+                url = url + sc.$parent.userEventCtrl.subject ;
             }else{
-                url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.category + "=" + sc.$parent.$ctrl.keyword;
+                url = url + sc.$parent.userEventCtrl.subject + "?" + sc.$parent.userEventCtrl.category + "=" + sc.$parent.userEventCtrl.keyword;
             }
             $http.get(url).then(
                 function (fieldList) {
                     if (fieldList.data == null || fieldList.data.length<1){
-                        sc.$parent.$ctrl.value = [];
+                        sc.$parent.userEventCtrl.value = [];
                         $mdSidenav('right').toggle();
                         $mdToast.show(
                             $mdToast.simple()
@@ -93,7 +92,7 @@
 
                         fieldList.keys = keys;
 
-                        sc.$parent.$ctrl.value = fieldList;
+                        sc.$parent.userEventCtrl.value = fieldList;
                         // $rootScope.$emit("getSearchResults", fieldList.data, keys);
                         $mdSidenav('right').toggle();
                         $mdToast.show(
@@ -133,7 +132,7 @@
         $scope.limitOptions = [5, 10, 15, {
             label: 'All',
             value: function () {
-                return $scope.$parent.$ctrl.value.data ? $scope.$parent.$ctrl.value.data.length : 0;
+                return $scope.$parent.userGridCtrl.value.data ? $scope.$parent.userGridCtrl.value.data.length : 0;
             }
         }];
 
@@ -145,16 +144,10 @@
         var sc = $scope;
 
 
-        $scope.editComment = function (event, id, col_key) {
+        $scope.editComment = function (event, record, col_key) {
             event.stopPropagation(); // in case autoselect is enabled
             if(col_key ==='id') return;
-            var record = ''
-            for (var i=0; i< sc.$parent.$ctrl.value.data.length; i++){
-                if (sc.$parent.$ctrl.value.data[i]['id'] === id){
-                    record = sc.$parent.$ctrl.value.data[i]
 
-                }
-            };
             var editDialog = {
                 modelValue: record[col_key],
                 placeholder: 'Edit a field',
@@ -162,7 +155,7 @@
 
                     record[col_key] = input.$modelValue;
                     //** PUT Method **
-                    let url  = 'https://www.brandonsport.com/' + sc.$parent.$ctrl.subject + "/" + record.id;
+                    let url  = 'https://www.brandonsport.com/' + sc.$parent.userGridCtrl.subject + "/" + record.id;
                     let config = {headers: { 'Content-Type': 'application/json; charset=UTF-8'}};
                     $http.put(url, record, config)
                         .then(function (response) {
@@ -172,19 +165,19 @@
                                     .textContent(response.statusText)
                                     .hideDelay(3000));
                             let url  = 'https://www.brandonsport.com/';
-                            if(sc.$parent.$ctrl.keyword===''||sc.$parent.$ctrl.keyword===undefined){
-                                url = url + sc.$parent.$ctrl.subject ;
+                            if(sc.$parent.userGridCtrl.keyword===''||sc.$parent.userGridCtrl.keyword===undefined){
+                                url = url + sc.$parent.userGridCtrl.subject ;
                             }else{
-                                url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.category + "=" + sc.$parent.$ctrl.keyword;
+                                url = url + sc.$parent.userGridCtrl.subject + "?" + sc.$parent.userGridCtrl.category + "=" + sc.$parent.userGridCtrl.keyword;
                             }
                             $http.get(url).then(function (fieldList) {
                                 if (fieldList.data == null || fieldList.data.length<1){
-                                    sc.$parent.$ctrl.value = []
+                                    sc.$parent.userGridCtrl.value = []
                                     return
                                 }
                                 var keys = Object.keys(fieldList.data[0]);
                                 fieldList.keys = keys;
-                                sc.$parent.$ctrl.value = fieldList;
+                                sc.$parent.userGridCtrl.value = fieldList;
                             })
                         })
                         .catch(function (response) {
@@ -221,51 +214,51 @@
         };
 
 
-        $scope.showEditDialog = function (event, selectedRecord, keys) {
+        $scope.showEditDialog = function (event, selectedRecord) {
             $scope.selectedRecord = selectedRecord;
-            $scope.keys = keys;
             $mdDialog.show({
                 clickOutsideToClose: true,
                 scope: $scope,        // use parent scope in template
                 preserveScope: true,
                 controller: UserEditCtrl,
-                locals: { selectedRecord: selectedRecord, keys: keys,},
+                locals: { selectedRecord: $scope.selectedRecord,},
                 templateUrl: '/components/user/user-edit.dialog.html'
             });
         };
 
-        $scope.showAddDialog = function (event, keys) {
-            $scope.record = {};
-            $scope.keys = keys;
+        $scope.showAddDialog = function (event) {
+            $scope.newRecord = {};
+
             $mdDialog.show({
                 clickOutsideToClose: true,
                 scope: $scope,        // use parent scope in template
                 preserveScope: true,
                 controller: UserAddCtrl,
-                locals: {record: $scope.record, keys: $scope.keys},
+                locals: {newRecord: $scope.newRecord},
                 templateUrl: '/components/user/user-add.dialog.html'
             });
         };
 
 
-        $scope.showDeleteConfirmationDialog = function(event, id){
+        $scope.showDeleteConfirmationDialog = function(event, selectRecord){
+            $scope.selectRecord = selectRecord;
             $mdDialog.show({
                 clickOutsideToClose: true,
                 scope: $scope,        // use parent scope in template
                 preserveScope: true,
                 controller: UserDeleteCtrl,
-                locals: {id: id},
+                locals: {selectRecord: $scope.selectRecord},
                 templateUrl: '/components/user/user-delete.dialog.html',
             });
         };
     }
 
-    function UserDeleteCtrl($ocLazyLoad, $http,$mdToast, $scope, $mdDialog, id) {
-        $scope.id = id;
+    function UserDeleteCtrl($ocLazyLoad, $http,$mdToast, $scope, $mdDialog, selectRecord) {
+
         var sc = $scope
-        $scope.closeDialog = function(id, feedback) {
+        $scope.closeDialog = function(selectRecord, feedback) {
             if(feedback==='y'){
-                let url  = 'https://www.brandonsport.com/' + sc.$parent.$ctrl.subject+"/" + id;
+                let url  = 'https://www.brandonsport.com/' + sc.$parent.userGridCtrl.subject+"/" + selectRecord.id;
                 let config = {headers: { 'Content-Type': 'application/json; charset=UTF-8'}};
                 $http.delete(url)
                     .then(function (response) {
@@ -276,19 +269,19 @@
 
 
                         let url  = 'https://www.brandonsport.com/';
-                        if(sc.$parent.$ctrl.keyword===''||sc.$parent.$ctrl.keyword===undefined){
-                            url = url + sc.$parent.$ctrl.subject ;
+                        if(sc.$parent.userGridCtrl.keyword===''||sc.$parent.userGridCtrl.keyword===undefined){
+                            url = url + sc.$parent.userGridCtrl.subject ;
                         }else{
-                            url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.category + "=" + sc.$parent.$ctrl.keyword;
+                            url = url + sc.$parent.userGridCtrl.subject + "?" + sc.$parent.userGridCtrl.category + "=" + sc.$parent.userGridCtrl.keyword;
                         }
                         $http.get(url).then(function (fieldList) {
                             if (fieldList.data == null || fieldList.data.length<1){
-                                sc.$parent.$ctrl.value = []
+                                sc.$parent.userGridCtrl.value = []
                                 return
                             }
                             var keys = Object.keys(fieldList.data[0]);
                             fieldList.keys = keys;
-                            sc.$parent.$ctrl.value = fieldList;
+                            sc.$parent.userGridCtrl.value = fieldList;
 
                         })
 
@@ -306,7 +299,7 @@
             $mdDialog.hide();
         }
     }
-    function UserEditCtrl($ocLazyLoad, $scope,$http, $mdToast,  $mdDialog, selectedRecord, keys) {
+    function UserEditCtrl($ocLazyLoad, $scope,$http, $mdToast,  $mdDialog, selectedRecord) {
 
         $scope.selectedRecord = selectedRecord;
         $scope.cancel = function() {
@@ -314,7 +307,7 @@
         }
         var sc = $scope;
         $scope.save= function(selectedRecord) {
-            let url  = 'https://www.brandonsport.com/' + sc.$parent.$ctrl.subject+"/" + selectedRecord.id;
+            let url  = 'https://www.brandonsport.com/' + sc.$parent.userGridCtrl.subject+"/" + selectedRecord.id;
             let config = {headers: { 'Content-Type': 'application/json; charset=UTF-8'}};
             selectedRecord['id'] =  parseInt(selectedRecord['id'], 10);
             $http.put(url, selectedRecord, config).then(function (response) {
@@ -324,19 +317,19 @@
                         .hideDelay(3000));
 
                 let url  = 'https://www.brandonsport.com/';
-                if(sc.$parent.$ctrl.keyword===''||sc.$parent.$ctrl.keyword===undefined){
-                    url = url + sc.$parent.$ctrl.subject ;
+                if(sc.$parent.userGridCtrl.keyword===''||sc.$parent.userGridCtrl.keyword===undefined){
+                    url = url + sc.$parent.userGridCtrl.subject ;
                 }else{
-                    url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.category + "=" + sc.$parent.$ctrl.keyword;
+                    url = url + sc.$parent.userGridCtrl.subject + "?" + sc.$parent.userGridCtrl.category + "=" + sc.$parent.userGridCtrl.keyword;
                 }
                 $http.get(url).then(function (fieldList) {
                     if (fieldList.data == null || fieldList.data.length<1){
-                        sc.$parent.$ctrl.value = []
+                        sc.$parent.userGridCtrl.value = []
                         return
                     }
                     var keys = Object.keys(fieldList.data[0]);
                     fieldList.keys = keys;
-                    sc.$parent.$ctrl.value = fieldList;
+                    sc.$parent.userGridCtrl.value = fieldList;
 
                 });
 
@@ -346,16 +339,16 @@
                         .textContent(response.statusText)
                         .hideDelay(3000))
                 let url  = 'https://www.brandonsport.com/';
-                if(sc.$parent.$ctrl.keyword===''||sc.$parent.$ctrl.keyword===undefined){
-                    url = url + sc.$parent.$ctrl.subject ;
+                if(sc.$parent.userGridCtrl.keyword===''||sc.$parent.userGridCtrl.keyword===undefined){
+                    url = url + sc.$parent.userGridCtrl.subject ;
                 }else{
-                    url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.category + "=" + sc.$parent.$ctrl.keyword;
+                    url = url + sc.$parent.userGridCtrl.subject + "?" + sc.$parent.userGridCtrl.category + "=" + sc.$parent.userGridCtrl.keyword;
                 }
                 $http.get(url).then(function (fieldList) {
                     if(fieldList.length)
                     var keys = Object.keys(fieldList.data[0]);
                     fieldList.keys = keys;
-                    sc.$parent.$ctrl.value = fieldList;
+                    sc.$parent.userGridCtrl.value = fieldList;
 
                 });
             });
@@ -365,34 +358,34 @@
 
         }
     }
-    function UserAddCtrl($ocLazyLoad, $http, $mdToast, $scope, $mdDialog) {
+    function UserAddCtrl($ocLazyLoad, $http, $mdToast, $scope, $mdDialog,newRecord) {
         var sc = $scope;
-        $scope.addRecord = function(record){
+        $scope.addRecord = function(newRecord){
 
-            record['id'] =  parseInt(record['id'], 10);
+            newRecord['id'] =  parseInt(newRecord['id'], 10);
 
-            let url  = 'https://www.brandonsport.com/' + sc.$parent.$ctrl.subject;
+            let url  = 'https://www.brandonsport.com/' + sc.$parent.userGridCtrl.subject;
             let config = {headers: { 'Content-Type': 'application/json; charset=UTF-8'}};
-            $http.post(url, record, config)
+            $http.post(url, newRecord, config)
                 .then(function (response) {
                     $mdToast.show(
                         $mdToast.simple()
                             .textContent(response.statusText)
                             .hideDelay(3000))
                     let url  = 'https://www.brandonsport.com/';
-                    if(sc.$parent.$ctrl.keyword===''||sc.$parent.$ctrl.keyword===undefined){
-                        url = url + sc.$parent.$ctrl.subject ;
+                    if(sc.$parent.userGridCtrl.keyword===''||sc.$parent.userGridCtrl.keyword===undefined){
+                        url = url + sc.$parent.userGridCtrl.subject ;
                     }else{
-                        url = url + sc.$parent.$ctrl.subject + "?" + sc.$parent.$ctrl.category + "=" + sc.$parent.$ctrl.keyword;
+                        url = url + sc.$parent.userGridCtrl.subject + "?" + sc.$parent.userGridCtrl.category + "=" + sc.$parent.userGridCtrl.keyword;
                     }
                     $http.get(url).then(function (fieldList) {
                         if (fieldList.data == null || fieldList.data.length<1){
-                            sc.$parent.$ctrl.value = []
+                            sc.$parent.userGridCtrl.value = []
                             return
                         }
                         var keys = Object.keys(fieldList.data[0]);
                         fieldList.keys = keys;
-                        sc.$parent.$ctrl.value = fieldList;
+                        sc.$parent.userGridCtrl.value = fieldList;
 
                     })
                 })
@@ -405,12 +398,10 @@
                 })
             $mdDialog.hide();
         }
-        $scope.closeDialog = function() {
+        $scope.cancel = function() {
             $mdDialog.hide();
         }
-        $scope.displayPrevious = function() {
-            $mdDialog.hide();
-        }
+
     }
 
 

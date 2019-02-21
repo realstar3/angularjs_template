@@ -5,6 +5,7 @@
 //         templateUrl: '/components/user/user-edit.dialog.html',
 //         bindings: {
 //             // id: '<'
-//         }
+//         },
+//
 //     });
 //

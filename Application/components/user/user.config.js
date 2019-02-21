@@ -1,5 +1,5 @@
 (function () {
-    angular.module('cogranApp', ['ngAnimate','ngMaterial','ui.router', 'ngSanitize', 'oc.lazyLoad'])
+    angular.module('userApp', ['ngAnimate','ngMaterial','ui.router', 'ngSanitize', 'oc.lazyLoad'])
         .config(['$ocLazyLoadProvider', '$stateProvider', '$urlRouterProvider' ,
             function($ocLazyLoadProvider, $stateProvider, $urlRouterProvider) {
                 $urlRouterProvider.otherwise("/");
@@ -8,7 +8,9 @@
                         url: "/user",
                         views: {
                             "": {
-                                templateUrl: "components/user/user.html"
+                                templateUrl: "components/user/user.html",
+                                controller: 'UserCtrl',
+                                controllerAs: 'userCtrl'
                             }
                         },
                         resolve: {

@@ -1,17 +1,17 @@
 
-<div flex layout="row" layout-align="center none"  ng-controller="UserCtrl as Sctl">
+<div flex layout="row" layout-align="center none"  >
     <div id="sampleform" flex flex-md="80" flex-lg="65" flex-xl="55" style="max-height:none;">
     <a href="#">Dashboard</a> > User
 
         <div layout-padding layout-margin flex-xs="100" >
             <div flex class="ng-scope layout-align-center-stretch layout-row flex">
                 <mat-form-field class="example-full-width">
-                    <i class="material-icons" ng-if="Sctl.data!=''">
+                    <i class="material-icons" ng-if="userCtrl.data!=''">
                         search
                     </i>
 
-                    <input ng-if="Sctl.data!=''"  matInput placeholder="Enter search String"
-                           ng-model="Sctl.searchString" ng-change="changedSearch()">
+                    <input ng-if="userCtrl.data!=''"  matInput placeholder="Enter search String"
+                           ng-model="userCtrl.searchString" ng-change="changedSearch()">
 
                     <a ng-click="openRightSide()"><i class="material-icons">
                         line_weight
@@ -19,7 +19,7 @@
                 </mat-form-field>
             </div>
             <br />
-            <v-accordion id="accordionA" class="vAccordion--default" ng-hide="Sctl.data===''"
+            <v-accordion id="accordionA" class="vAccordion--default" ng-hide="userCtrl.data===''"
                          control="accordionA" onexpand="expandCallback(index, id)"
                          oncollapse="collapseCallback(index, id)">
                 <v-pane id="pane1" expanded>
@@ -29,19 +29,19 @@
                     </v-pane-header>
 
                     <v-pane-content id="samplePane-content" aria-labelledby="samplePane-header">
-                        <cog-user-grid tablekeyword="Sctl.searchString" value="Sctl.data" subject="Sctl.subject"
-                                       keyword="Sctl.keyword"
-                                       category="Sctl.category"></cog-user-grid>
+                        <cog-user-grid tablekeyword="userCtrl.searchString" value="userCtrl.data" subject="userCtrl.subject"
+                                       keyword="userCtrl.keyword"
+                                       category="userCtrl.category"></cog-user-grid>
                     </v-pane-content>
                 </v-pane>
 
-                <!--<v-pane id="pane2" expanded ng-hide="Sctl.searchString!==''">-->
+                <!--<v-pane id="pane2" expanded ng-hide="userCtrl.searchString!==''">-->
                     <!--<v-pane-header id="samplePane2-header" aria-controls="samplePane2-content">-->
                         <!--Field List-->
                     <!--</v-pane-header>-->
                     <!--<v-pane-content id="samplePane2-content" aria-controls="samplePane2-header">-->
-                        <!--<cog-user-grid value="Sctl.data" subject="Sctl.subject" categoryKeyword="Sctl.categoryKeyword"-->
-                                       <!--categoryName="Sctl.categoryName"></cog-user-grid>-->
+                        <!--<cog-user-grid value="userCtrl.data" subject="userCtrl.subject" categoryKeyword="userCtrl.categoryKeyword"-->
+                                       <!--categoryName="userCtrl.categoryName"></cog-user-grid>-->
                     <!--</v-pane-content>-->
                 <!--</v-pane>-->
 
@@ -50,5 +50,5 @@
 
         </div>
     </div>
-    <cog-user-find value="Sctl.data" subject="Sctl.subject" category="Sctl.category" keyword="Sctl.keyword"></cog-user-find>
+    <cog-user-find value="userCtrl.data" subject="userCtrl.subject" category="userCtrl.category" keyword="userCtrl.keyword"></cog-user-find>
 </div>

@@ -9,6 +9,7 @@
                 keyword:'=',
                 category:'='
 
-            }
+            },
+            controllerAs: 'userGridCtrl'
         })
 

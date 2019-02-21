@@ -1,5 +1,5 @@
 angular
-    .module('userApp')
+    .module('userApp',)
     .component('cogUserFind', {
         templateUrl: '/components/user/user-search.html',
         bindings:{
@@ -9,6 +9,7 @@ angular
             keyword:'='
 
         },
+        controllerAs:'userEventCtrl'
 
     });
 
