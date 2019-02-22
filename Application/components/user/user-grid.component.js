@@ -5,9 +5,7 @@
             bindings: {
                 tablekeyword: '=',
                 value: '=',
-                subject: '=',
                 keyword: '=',
-                category: '='
             },
             controllerAs: 'userGridCtrl'
         })

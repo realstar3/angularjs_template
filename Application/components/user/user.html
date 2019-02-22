@@ -22,12 +22,12 @@
                         {{displayMessage}}
                     </v-pane-header>
                     <v-pane-content id="samplePane-content" aria-labelledby="samplePane-header">
-                        <cog-user-grid tablekeyword="userCtrl.searchString" value="userCtrl.data" subject="userCtrl.subject"
-                            keyword="userCtrl.keyword" category="userCtrl.category"></cog-user-grid>
+                        <cog-user-grid tablekeyword="userCtrl.searchString" value="userCtrl.data"
+                            keyword="userCtrl.keyword" ></cog-user-grid>
                     </v-pane-content>
                 </v-pane>
             </v-accordion>
         </div>
     </div>
-    <cog-user-find value="userCtrl.data" subject="userCtrl.subject" category="userCtrl.category" keyword="userCtrl.keyword"></cog-user-find>
+    <cog-user-find value="userCtrl.data" keyword="userCtrl.keyword"></cog-user-find>
 </div>

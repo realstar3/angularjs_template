@@ -52,16 +52,21 @@
 
         var sc = $scope;
         $scope.applyFilters = function () {
-            sc.$parent.userSearchCtrl.subject = "users";
-            sc.$parent.userSearchCtrl.category = "name";
-            sc.$parent.userSearchCtrl.keyword = sc.keyword;
 
-            let url = 'https://www.brandonsport.com/';
-            if (sc.$parent.userSearchCtrl.keyword === '' || sc.$parent.userSearchCtrl.keyword === undefined) {
-                url = url + sc.$parent.userSearchCtrl.subject;
-            } else {
-                url = url + sc.$parent.userSearchCtrl.subject + "?" + sc.$parent.userSearchCtrl.category + "=" + sc.$parent.userSearchCtrl.keyword;
-            }
+            sc.$parent.userSearchCtrl.keyword = {"name":sc.name, "id":sc.id};
+            var keyword = sc.$parent.userSearchCtrl.keyword;
+
+            var params = '?';
+            var categorys =Object.keys(keyword);
+            categorys.forEach(c=>{
+                if(keyword[c]===''||keyword[c]===undefined){
+                    params=params + '';
+
+                }else {
+                    params=params + c + "=" + keyword[c] + "&";
+                }
+            })
+            let url = 'https://www.brandonsport.com/users/' + params;
             $http.get(url).then(
                     function (fieldList) {
                         if (fieldList.data == null || fieldList.data.length < 1) {
@@ -70,17 +75,10 @@
                             $mdToast.show(
                                     $mdToast.simple()
                                     .textContent('No records found, please try another search (COG-1000)')
-                                    .hideDelay(3000))
-                                .then(function () {
-                                    $log.log('Toast dismissed.');
-                                })
-                                .catch(function () {
-                                    $log.log('Toast failed or was forced to close early by another toast.');
-                                });
+                                    .hideDelay(3000));
+
                         } else {
-                            sc.serverError = ''
-                            var keys = Object.keys(fieldList.data[0]);
-                            fieldList.keys = keys;
+                            sc.serverError = '';
                             sc.$parent.userSearchCtrl.value = fieldList;
                             $mdSidenav('right').toggle();
                             $mdToast.show(
@@ -139,7 +137,7 @@
 
                     record[col_key] = input.$modelValue;
                     //** PUT Method **
-                    let url = 'https://www.brandonsport.com/' + sc.$parent.userGridCtrl.subject + "/" + record.id;
+                    let url = 'https://www.brandonsport.com/users/' + record.id;
                     let config = {
                         headers: {
                             'Content-Type': 'application/json; charset=UTF-8'
@@ -152,12 +150,19 @@
                                 $mdToast.simple()
                                 .textContent(response.statusText)
                                 .hideDelay(3000));
-                            let url = 'https://www.brandonsport.com/';
-                            if (sc.$parent.userGridCtrl.keyword === '' || sc.$parent.userGridCtrl.keyword === undefined) {
-                                url = url + sc.$parent.userGridCtrl.subject;
-                            } else {
-                                url = url + sc.$parent.userGridCtrl.subject + "?" + sc.$parent.userGridCtrl.category + "=" + sc.$parent.userGridCtrl.keyword;
-                            }
+                            var keyword = sc.$parent.userGridCtrl.keyword;
+
+                            var params = '?';
+                            var categorys =Object.keys(keyword);
+                            categorys.forEach(c=>{
+                                if(keyword[c]===''||keyword[c]===undefined){
+                                    params=params + '';
+
+                                }else {
+                                    params=params + c + "=" + keyword[c] + "&";
+                                }
+                            })
+                            let url = 'https://www.brandonsport.com/users/' + params;
                             $http.get(url).then(function (fieldList) {
                                 if (fieldList.data == null || fieldList.data.length < 1) {
                                     sc.$parent.userGridCtrl.value = []
@@ -250,7 +255,7 @@
         var sc = $scope
         $scope.closeDialog = function (selectRecord, feedback) {
             if (feedback === 'y') {
-                let url = 'https://www.brandonsport.com/' + sc.$parent.userGridCtrl.subject + "/" + selectRecord.id;
+                let url = 'https://www.brandonsport.com/users/' + selectRecord.id;
                 let config = {
                     headers: {
                         'Content-Type': 'application/json; charset=UTF-8'
@@ -263,19 +268,25 @@
                             .textContent(response.statusText)
                             .hideDelay(3000))
 
-                        let url = 'https://www.brandonsport.com/';
-                        if (sc.$parent.userGridCtrl.keyword === '' || sc.$parent.userGridCtrl.keyword === undefined) {
-                            url = url + sc.$parent.userGridCtrl.subject;
-                        } else {
-                            url = url + sc.$parent.userGridCtrl.subject + "?" + sc.$parent.userGridCtrl.category + "=" + sc.$parent.userGridCtrl.keyword;
-                        }
+                        var keyword = sc.$parent.userGridCtrl.keyword;
+
+                        var params = '?';
+                        var categorys =Object.keys(keyword);
+                        categorys.forEach(c=>{
+                            if(keyword[c]===''||keyword[c]===undefined){
+                                params=params + '';
+
+                            }else {
+                                params=params + c + "=" + keyword[c] + "&";
+                            }
+                        })
+                        let url = 'https://www.brandonsport.com/users/' + params;
                         $http.get(url).then(function (fieldList) {
                             if (fieldList.data == null || fieldList.data.length < 1) {
                                 sc.$parent.userGridCtrl.value = []
                                 return
                             }
-                            var keys = Object.keys(fieldList.data[0]);
-                            fieldList.keys = keys;
+
                             sc.$parent.userGridCtrl.value = fieldList;
                         })
                     })
@@ -291,16 +302,14 @@
         $scope.cancel = function () {
             $mdDialog.hide();
         }
-        $scope.closeDialog = function () {
-            $mdDialog.hide();
-        }
+
     }
 
     function UserEditCtrl($ocLazyLoad, $scope, $http, $mdToast, $mdDialog, selectedRecord) {
 
         var sc = $scope;
         $scope.save = function (selectedRecord) {
-            let url = 'https://www.brandonsport.com/' + sc.$parent.userGridCtrl.subject + "/" + selectedRecord.id;
+            let url = 'https://www.brandonsport.com/users/' + selectedRecord.id;
             let config = {
                 headers: {
                     'Content-Type': 'application/json; charset=UTF-8'
@@ -313,19 +322,25 @@
                     .textContent(response.statusText)
                     .hideDelay(3000));
 
-                let url = 'https://www.brandonsport.com/';
-                if (sc.$parent.userGridCtrl.keyword === '' || sc.$parent.userGridCtrl.keyword === undefined) {
-                    url = url + sc.$parent.userGridCtrl.subject;
-                } else {
-                    url = url + sc.$parent.userGridCtrl.subject + "?" + sc.$parent.userGridCtrl.category + "=" + sc.$parent.userGridCtrl.keyword;
-                }
+                var keyword = sc.$parent.userGridCtrl.keyword;
+
+                var params = '?';
+                var categorys =Object.keys(keyword);
+                categorys.forEach(c=>{
+                    if(keyword[c]===''||keyword[c]===undefined){
+                        params=params + '';
+
+                    }else {
+                        params=params + c + "=" + keyword[c] + "&";
+                    }
+                })
+                let url = 'https://www.brandonsport.com/users/' + params;
                 $http.get(url).then(function (fieldList) {
                     if (fieldList.data == null || fieldList.data.length < 1) {
                         sc.$parent.userGridCtrl.value = []
                         return
                     }
-                    var keys = Object.keys(fieldList.data[0]);
-                    fieldList.keys = keys;
+
                     sc.$parent.userGridCtrl.value = fieldList;
 
                 });
@@ -334,17 +349,21 @@
                 $mdToast.show(
                     $mdToast.simple()
                     .textContent(response.statusText)
-                    .hideDelay(3000))
-                let url = 'https://www.brandonsport.com/';
-                if (sc.$parent.userGridCtrl.keyword === '' || sc.$parent.userGridCtrl.keyword === undefined) {
-                    url = url + sc.$parent.userGridCtrl.subject;
-                } else {
-                    url = url + sc.$parent.userGridCtrl.subject + "?" + sc.$parent.userGridCtrl.category + "=" + sc.$parent.userGridCtrl.keyword;
-                }
+                    .hideDelay(3000));
+                var keyword = sc.$parent.userGridCtrl.keyword;
+
+                var params = '?';
+                var categorys =Object.keys(keyword);
+                categorys.forEach(c=>{
+                    if(keyword[c]===''||keyword[c]===undefined){
+                        params=params + '';
+
+                    }else {
+                        params=params + c + "=" + keyword[c] + "&";
+                    }
+                })
+                let url = 'https://www.brandonsport.com/users/' + params;
                 $http.get(url).then(function (fieldList) {
-                    if (fieldList.length)
-                        var keys = Object.keys(fieldList.data[0]);
-                    fieldList.keys = keys;
                     sc.$parent.userGridCtrl.value = fieldList;
 
                 });
@@ -369,7 +388,7 @@
 
             newRecord['id'] = parseInt(newRecord['id'], 10);
 
-            let url = 'https://www.brandonsport.com/' + sc.$parent.userGridCtrl.subject;
+            let url = 'https://www.brandonsport.com/users';
             let config = {
                 headers: {
                     'Content-Type': 'application/json; charset=UTF-8'
@@ -381,19 +400,25 @@
                         $mdToast.simple()
                         .textContent(response.statusText)
                         .hideDelay(3000))
-                    let url = 'https://www.brandonsport.com/';
-                    if (sc.$parent.userGridCtrl.keyword === '' || sc.$parent.userGridCtrl.keyword === undefined) {
-                        url = url + sc.$parent.userGridCtrl.subject;
-                    } else {
-                        url = url + sc.$parent.userGridCtrl.subject + "?" + sc.$parent.userGridCtrl.category + "=" + sc.$parent.userGridCtrl.keyword;
-                    }
+                    var keyword = sc.$parent.userGridCtrl.keyword;
+
+                    var params = '?';
+                    var categorys =Object.keys(keyword);
+                    categorys.forEach(c=>{
+                        if(keyword[c]===''||keyword[c]===undefined){
+                            params=params + '';
+
+                        }else {
+                            params=params + c + "=" + keyword[c] + "&";
+                        }
+                    })
+                    let url = 'https://www.brandonsport.com/users/' + params;
                     $http.get(url).then(function (fieldList) {
                         if (fieldList.data == null || fieldList.data.length < 1) {
                             sc.$parent.userGridCtrl.value = []
                             return
                         }
-                        var keys = Object.keys(fieldList.data[0]);
-                        fieldList.keys = keys;
+
                         sc.$parent.userGridCtrl.value = fieldList;
 
                     })

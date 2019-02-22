@@ -4,8 +4,6 @@ angular
         templateUrl: '/components/user/user-search.html',
         bindings:{
             value: '=',
-            subject:'=',
-            category:'=',
             keyword:'='
         },
         controllerAs:'userSearchCtrl'
