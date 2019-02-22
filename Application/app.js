@@ -33,21 +33,12 @@ var app = angular.module('cogranApp', ['ngAnimate','ngMaterial','ui.router', 'ng
                         files: [
                             'https://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.min.js',
                             'https://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.css',
-
                             'https://www.cogran.io/assets/css/v-accordion-min.css',
                             'https://lukaszwatroba.github.io/v-accordion/dist/v-accordion.min.js',
-
-                            'components/user/user.module.js',
                             'components/user/user.component.js',
                             'components/user/user.controller.js',
-
-                            'components/user/user-add.component.js',
-                            'components/user/user-delete.component.js',
-                            'components/user/user-edit.component.js',
                             'components/user/user-grid.component.js',
-                            'components/user/user-search.component.js',
-
-
+                            'components/user/user-search.component.js'
                         ]
                     },
                     { // Set modules initially
