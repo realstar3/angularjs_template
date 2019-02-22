@@ -46,24 +46,27 @@
         };
     }
 
-    function UserSearchCtrl($ocLazyLoad, $scope, $rootScope, $http, $mdSidenav, $mdToast, $log) {
+    function UserSearchCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdSidenav, $log, $rootScope) {
 
         $scope.serverError = '';
 
         var sc = $scope;
         $scope.applyFilters = function () {
 
-            sc.$parent.userSearchCtrl.keyword = {"name":sc.name, "id":sc.id};
+            sc.$parent.userSearchCtrl.keyword = {
+                "name": sc.name,
+                "id": sc.id
+            };
             var keyword = sc.$parent.userSearchCtrl.keyword;
 
             var params = '?';
-            var categorys =Object.keys(keyword);
-            categorys.forEach(c=>{
-                if(keyword[c]===''||keyword[c]===undefined){
-                    params=params + '';
+            var categorys = Object.keys(keyword);
+            categorys.forEach(c => {
+                if (keyword[c] === '' || keyword[c] === undefined) {
+                    params = params + '';
 
-                }else {
-                    params=params + c + "=" + keyword[c] + "&";
+                } else {
+                    params = params + c + "=" + keyword[c] + "&";
                 }
             })
             let url = 'https://www.brandonsport.com/users/' + params;
@@ -73,9 +76,9 @@
                             sc.$parent.userSearchCtrl.value = [];
                             $mdSidenav('right').toggle();
                             $mdToast.show(
-                                    $mdToast.simple()
-                                    .textContent('No records found, please try another search (COG-1000)')
-                                    .hideDelay(3000));
+                                $mdToast.simple()
+                                .textContent('No records found, please try another search (COG-1000)')
+                                .hideDelay(3000));
 
                         } else {
                             sc.serverError = '';
@@ -97,7 +100,7 @@
         }
     }
 
-    function UserGridCtrl($ocLazyLoad, $http, $mdDialog, $mdToast, $mdEditDialog, $q, $timeout, $scope) {
+    function UserGridCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdDialog, $mdEditDialog, $q, $timeout) {
         this.subject = "";
 
         $scope.options = {
@@ -153,13 +156,13 @@
                             var keyword = sc.$parent.userGridCtrl.keyword;
 
                             var params = '?';
-                            var categorys =Object.keys(keyword);
-                            categorys.forEach(c=>{
-                                if(keyword[c]===''||keyword[c]===undefined){
-                                    params=params + '';
+                            var categorys = Object.keys(keyword);
+                            categorys.forEach(c => {
+                                if (keyword[c] === '' || keyword[c] === undefined) {
+                                    params = params + '';
 
-                                }else {
-                                    params=params + c + "=" + keyword[c] + "&";
+                                } else {
+                                    params = params + c + "=" + keyword[c] + "&";
                                 }
                             })
                             let url = 'https://www.brandonsport.com/users/' + params;
@@ -250,7 +253,7 @@
         };
     }
 
-    function UserDeleteCtrl($ocLazyLoad, $http, $mdToast, $scope, $mdDialog, selectRecord) {
+    function UserDeleteCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdDialog, selectRecord) {
 
         var sc = $scope
         $scope.closeDialog = function (selectRecord, feedback) {
@@ -271,13 +274,13 @@
                         var keyword = sc.$parent.userGridCtrl.keyword;
 
                         var params = '?';
-                        var categorys =Object.keys(keyword);
-                        categorys.forEach(c=>{
-                            if(keyword[c]===''||keyword[c]===undefined){
-                                params=params + '';
+                        var categorys = Object.keys(keyword);
+                        categorys.forEach(c => {
+                            if (keyword[c] === '' || keyword[c] === undefined) {
+                                params = params + '';
 
-                            }else {
-                                params=params + c + "=" + keyword[c] + "&";
+                            } else {
+                                params = params + c + "=" + keyword[c] + "&";
                             }
                         })
                         let url = 'https://www.brandonsport.com/users/' + params;
@@ -305,7 +308,7 @@
 
     }
 
-    function UserEditCtrl($ocLazyLoad, $scope, $http, $mdToast, $mdDialog, selectedRecord) {
+    function UserEditCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdDialog, selectedRecord) {
 
         var sc = $scope;
         $scope.save = function (selectedRecord) {
@@ -325,13 +328,13 @@
                 var keyword = sc.$parent.userGridCtrl.keyword;
 
                 var params = '?';
-                var categorys =Object.keys(keyword);
-                categorys.forEach(c=>{
-                    if(keyword[c]===''||keyword[c]===undefined){
-                        params=params + '';
+                var categorys = Object.keys(keyword);
+                categorys.forEach(c => {
+                    if (keyword[c] === '' || keyword[c] === undefined) {
+                        params = params + '';
 
-                    }else {
-                        params=params + c + "=" + keyword[c] + "&";
+                    } else {
+                        params = params + c + "=" + keyword[c] + "&";
                     }
                 })
                 let url = 'https://www.brandonsport.com/users/' + params;
@@ -353,13 +356,13 @@
                 var keyword = sc.$parent.userGridCtrl.keyword;
 
                 var params = '?';
-                var categorys =Object.keys(keyword);
-                categorys.forEach(c=>{
-                    if(keyword[c]===''||keyword[c]===undefined){
-                        params=params + '';
+                var categorys = Object.keys(keyword);
+                categorys.forEach(c => {
+                    if (keyword[c] === '' || keyword[c] === undefined) {
+                        params = params + '';
 
-                    }else {
-                        params=params + c + "=" + keyword[c] + "&";
+                    } else {
+                        params = params + c + "=" + keyword[c] + "&";
                     }
                 })
                 let url = 'https://www.brandonsport.com/users/' + params;
@@ -403,13 +406,13 @@
                     var keyword = sc.$parent.userGridCtrl.keyword;
 
                     var params = '?';
-                    var categorys =Object.keys(keyword);
-                    categorys.forEach(c=>{
-                        if(keyword[c]===''||keyword[c]===undefined){
-                            params=params + '';
+                    var categorys = Object.keys(keyword);
+                    categorys.forEach(c => {
+                        if (keyword[c] === '' || keyword[c] === undefined) {
+                            params = params + '';
 
-                        }else {
-                            params=params + c + "=" + keyword[c] + "&";
+                        } else {
+                            params = params + c + "=" + keyword[c] + "&";
                         }
                     })
                     let url = 'https://www.brandonsport.com/users/' + params;
