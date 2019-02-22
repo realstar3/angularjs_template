@@ -1,4 +1,5 @@
-<ng-form name="{{firstLetterLower frontend.FormName}}-grid" novalidate ng-controller="{{firstLetterUpper frontend.FormName}}GridCtrl">
+<ng-form name="{{firstLetterLower frontend.FormName}}-grid" novalidate
+    ng-controller="{{firstLetterUpper frontend.FormName}}GridCtrl">
     <md-card>
         <md-toolbar class="md-table-toolbar md-default" ng-hide="options.rowSelection && selected.length">
             <div class="md-toolbar-tools">
@@ -13,32 +14,41 @@
             <table md-table ng-model="selected" md-progress="promise">
                 <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
                     <tr md-row>
+
                         <th md-column><span>Action</span></th>
-                        <th md-column md-order-by="id"><span>ID</span></th>
-                        <th md-column md-order-by="name"><span>Name</span></th>
+                        {{#each frontend.Field}}
+                        {{#ifEq isSearch "1"}}
+                        <th md-column md-order-by="{{FieldName}}"><span>{{Label}}</span></th>
+                        {{/ifEq}}
+                        {{/each}}
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-select="{{firstLetterLower frontend.FormName}}Selected" md-on-select="logItem" ng-repeat="{{firstLetterLower frontend.FormName}}Record in {{firstLetterLower frontend.FormName}}GridCtrl.value.data| filter: {{firstLetterLower frontend.FormName}}GridCtrl.tablekeyword | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                    <tr md-row md-select="{{firstLetterLower frontend.FormName}}Selected" md-on-select="logItem"
+                        ng-repeat="{{firstLetterLower frontend.FormName}}Record in {{firstLetterLower frontend.FormName}}GridCtrl.value.data| filter: {{firstLetterLower frontend.FormName}}GridCtrl.tablekeyword | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                         <td md-cell class="width-override">
-                            <span style="cursor: pointer;" ng-click="[showEditDialog($event, {{firstLetterLower frontend.FormName}}Record )]">
+                            <span style="cursor: pointer;"
+                                ng-click="[showEditDialog($event, {{firstLetterLower frontend.FormName}}Record )]">
                                 <md-icon>edit</md-icon>
                             </span>
-                            <span style="cursor: pointer;" ng-click="[showDeleteConfirmationDialog($event,{{firstLetterLower frontend.FormName}}Record)]">
+                            <span style="cursor: pointer;"
+                                ng-click="[showDeleteConfirmationDialog($event,{{firstLetterLower frontend.FormName}}Record)]">
                                 <md-icon class="md-warn">delete</md-icon>
                             </span>
                         </td>
-                        <td md-cell ng-click="editComment($event, {{firstLetterLower frontend.FormName}}Record,'id')">
-                            \{{{{firstLetterLower frontend.FormName}}Record.id}}
+                        {{#each frontend.Field}}
+                        {{#ifEq isSearch "1"}}
+                        <td md-cell ng-click="editComment($event, {{firstLetterLower ../frontend.FormName}}Record,'{{FieldName}}')">
+                            \{{ {{firstLetterLower ../frontend.FormName}}Record.{{FieldName}} }}
                         </td>
-                        <td md-cell ng-click="editComment($event, {{firstLetterLower frontend.FormName}}Record,'name')">
-                            \{{{{firstLetterLower frontend.FormName}}Record.name}}
-                        </td>
+                        {{/ifEq}}
+                        {{/each}}
                     </tr>
                 </tbody>
             </table>
         </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="\{{{{firstLetterLower frontend.FormName}}GridCtrl.value.data.length}}"
+        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page"
+            md-total="\{{{{firstLetterLower frontend.FormName}}GridCtrl.value.data.length}}"
             md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks">
         </md-table-pagination>
     </md-card>

@@ -1,4 +1,5 @@
-<ng-form name="album-grid" novalidate ng-controller="AlbumGridCtrl">
+<ng-form name="album-grid" novalidate
+    ng-controller="AlbumGridCtrl">
     <md-card>
         <md-toolbar class="md-table-toolbar md-default" ng-hide="options.rowSelection && selected.length">
             <div class="md-toolbar-tools">
@@ -13,32 +14,44 @@
             <table md-table ng-model="selected" md-progress="promise">
                 <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
                     <tr md-row>
+
                         <th md-column><span>Action</span></th>
-                        <th md-column md-order-by="id"><span>ID</span></th>
-                        <th md-column md-order-by="name"><span>Name</span></th>
+                        <th md-column md-order-by="id"><span>Primary Key id</span></th>
+                        <th md-column md-order-by="name"><span>Name of album</span></th>
+                        <th md-column md-order-by="userid"><span>User with album</span></th>
                     </tr>
                 </thead>
                 <tbody md-body>
-                    <tr md-row md-select="albumSelected" md-on-select="logItem" ng-repeat="albumRecord in albumGridCtrl.value.data| filter: albumGridCtrl.tablekeyword | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
+                    <tr md-row md-select="albumSelected" md-on-select="logItem"
+                        ng-repeat="albumRecord in albumGridCtrl.value.data| filter: albumGridCtrl.tablekeyword | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
                         <td md-cell class="width-override">
-                            <span style="cursor: pointer;" ng-click="[showEditDialog($event, albumRecord )]">
+                            <span style="cursor: pointer;"
+                                ng-click="[showEditDialog($event, albumRecord )]">
                                 <md-icon>edit</md-icon>
                             </span>
-                            <span style="cursor: pointer;" ng-click="[showDeleteConfirmationDialog($event,albumRecord)]">
+                            <span style="cursor: pointer;"
+                                ng-click="[showDeleteConfirmationDialog($event,albumRecord)]">
                                 <md-icon class="md-warn">delete</md-icon>
                             </span>
                         </td>
+                        <!-- THIS IS NOT WORKING FIX FormName is null -->
                         <td md-cell ng-click="editComment($event, albumRecord,'id')">
-                            {{albumRecord.id}}
+                            {{ albumRecord.id }}
                         </td>
+                        <!-- THIS IS NOT WORKING FIX FormName is null -->
                         <td md-cell ng-click="editComment($event, albumRecord,'name')">
-                            {{albumRecord.name}}
+                            {{ albumRecord.name }}
+                        </td>
+                        <!-- THIS IS NOT WORKING FIX FormName is null -->
+                        <td md-cell ng-click="editComment($event, albumRecord,'userid')">
+                            {{ albumRecord.userid }}
                         </td>
                     </tr>
                 </tbody>
             </table>
         </md-table-container>
-        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page" md-total="{{albumGridCtrl.value.data.length}}"
+        <md-table-pagination md-limit="query.limit" md-limit-options="limitOptions" md-page="query.page"
+            md-total="{{albumGridCtrl.value.data.length}}"
             md-page-select="options.pageSelect" md-boundary-links="options.boundaryLinks">
         </md-table-pagination>
     </md-card>
