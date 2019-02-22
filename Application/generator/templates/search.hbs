@@ -1,0 +1,27 @@
+<md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-is-open="true" md-component-id="right">
+    <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">Filter List By</h1>
+    </md-toolbar>
+    <div layout-padding ng-controller="{{firstLetterUpper frontend.FormName}}SearchCtrl">
+        <form>
+            <div class="md-padding" ng-cloak>
+                <div>
+                    <div layout="column">
+                        <span ng-message="serverError" class="label label-danger">\{{serverError}}</span>
+                        <md-button ng-init="{{firstLetterLower frontend.FormName}}Ctrl.showItemFetchProgressBar = true"
+                            ng-click="applyFilters()" class="md-accent md-raised">Search
+                        </md-button>
+                        {{#each frontend.Field}}
+                        {{#ifEq isSearch "1"}}
+                        <md-input-container class="md-block">
+                            <input type="text" ng-model="{{FieldName}}" name="{{Label}}" placeholder="{{Label}}"
+                                aria-label="{{Label}}" />
+                        </md-input-container>
+                        {{/ifEq}}
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</md-sidenav>

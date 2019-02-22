@@ -9,19 +9,17 @@
         </div>
     </md-toolbar>
     <md-dialog-content layout="row" flex-gt-xs="66">
-        <ng-form name="userAdd" novalidate>
+        <ng-form name="{{firstLetterLower frontend.FormName}}Add" novalidate>
+            {{#each frontend.Field}}
+            {{#ifEq isSearch "1"}}
             <md-input-container class="md-block">
-                <label>Primary Key id</label>
-                <input type="text" ng-model="newRecord.id" name="Primary Key id" id="field_add_id"
-                    aria-label="Primary Key id" />
+                <label>{{Label}}</label>
+                <input type="text" ng-model="newRecord.{{FieldName}}" name="{{Label}}" id="field_add_{{FieldName}}"
+                    aria-label="{{Label}}" />
             </md-input-container>
 
-            <md-input-container class="md-block">
-                <label>Name of User</label>
-                <input type="text" ng-model="newRecord.name" name="Name of User" id="field_add_name"
-                    aria-label="Name of User" />
-            </md-input-container>
-
+            {{/ifEq}}
+            {{/each}}
             <div layout="column" class="layout-column ">
                 <md-button cogvalidate="" ng-click="addRecord(newRecord)"
                     class="md-raised md-primary md-block md-DarkBlue-theme ">Add

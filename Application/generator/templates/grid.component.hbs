@@ -1,0 +1,11 @@
+    angular
+        .module('{{firstLetterLower frontend.FormName}}App')
+        .component('cog{{firstLetterUpper frontend.FormName}}Grid', {
+            templateUrl: './components/{{frontend.FileName}}/{{firstLetterLower frontend.FormName}}-grid.html',
+            bindings: {
+                tablekeyword: '=',
+                value: '=',
+                keyword: '=',
+            },
+            controllerAs: '{{firstLetterLower frontend.FormName}}GridCtrl'
+        })

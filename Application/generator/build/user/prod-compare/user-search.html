@@ -1,0 +1,20 @@
+<md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-is-open="true" md-component-id="right">
+    <md-toolbar class="md-theme-light">
+        <h1 class="md-toolbar-tools">Filter List By</h1>
+    </md-toolbar>
+    <div layout-padding ng-controller="UserSearchCtrl">
+        <form>
+            <div class="md-padding" ng-cloak>
+                <div>
+                    <div layout="column">
+                        <span ng-message="serverError" class="label label-danger">{{serverError}}</span>
+                        <md-button ng-init="userCtrl.showItemFetchProgressBar = true" ng-click="applyFilters()" class="md-accent md-raised">Search
+                        </md-button>
+                        <input matInput placeholder="Name" ng-model="name">
+                        <input matInput placeholder="ID" ng-model="id">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</md-sidenav>

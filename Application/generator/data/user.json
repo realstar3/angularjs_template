@@ -1,0 +1,36 @@
+{
+"frontend":
+  {
+    "FormName": "user",
+    "Description": "User Maintenance",
+    "api": "https://www.brandonsport.com/users/",
+    "FileName": "user",
+    "PrimaryKey": "id",
+    "DisplayField": "name",
+    "SearchOneResult": "0",
+    "Field": [
+      {
+        "FieldName": "id",
+        "Label": "Primary Key id",
+        "isSearch": "1",
+        "isReadOnly": "0",
+        "isShow": "1",
+        "isList": "0",
+        "isGridInput": "0",
+        "Input": "<md-input-container class=\"md-block\"><label>Primary Key id</label><input  type=\"text\" ng-model=\"usersCtrl.{{ ModelObject }}.id\" name=\"id\" aria-label=\"Primary Key id\"  md-autofocus  /></md-input-container>",
+        "MaxLength": "20"
+      },
+      {
+        "FieldName": "name",
+        "Label": "Name of User",
+        "isSearch": "1",
+        "isReadOnly": "0",
+        "isShow": "1",
+        "isList": "0",
+        "isGridInput": "0",
+        "Input": "<md-input-container class=\"md-block\"><label>Name of User</label><input  type=\"text\" ng-model=\"usersCtrl.{{ ModelObject }}.name\" name=\"name\" aria-label=\"Name of User\"  /></md-input-container>",
+        "MaxLength": "50"
+      }
+    ]
+  }
+}

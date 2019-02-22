@@ -1,0 +1,46 @@
+(function () {
+    angular.module('cogranApp', ['ngMaterial', 'ui.router', 'ngSanitize', 'oc.lazyLoad'])
+        .config(['$ocLazyLoadProvider', '$stateProvider', '$urlRouterProvider', function ($ocLazyLoadProvider, $stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise("/");
+            //Config For ocLazyLoading
+            $ocLazyLoadProvider.config({
+                'debug': true, // For debugging 'true/false'
+                'events': true, // For Event 'true/false'
+                'modules': [{ // Set modules initially
+                    name: '{{firstLetterLower frontend.FormName}}', // State1 module
+                    files: [
+                        'https://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.min.js',
+                        'https://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.css',
+
+                        'https://www.cogran.io/assets/css/v-accordion-min.css',
+                        'https://lukaszwatroba.github.io/v-accordion/dist/v-accordion.min.js',
+                        'components/{{frontend.FileName}}/{{firstLetterLower frontend.FormName}}.module.js',
+                        'components/{{frontend.FileName}}/{{firstLetterLower frontend.FormName}}.component.js',
+                        'components/{{frontend.FileName}}/{{firstLetterLower frontend.FormName}}.controller.js',
+                        'components/{{frontend.FileName}}/{{firstLetterLower frontend.FormName}}-add.component.js',
+                        'components/{{frontend.FileName}}/{{firstLetterLower frontend.FormName}}-delete.component.js',
+                        'components/{{frontend.FileName}}/{{firstLetterLower frontend.FormName}}-edit.component.js',
+                        'components/{{frontend.FileName}}/{{firstLetterLower frontend.FormName}}-grid.component.js',
+                        'components/{{frontend.FileName}}/{{firstLetterLower frontend.FormName}}-help.component.js',
+                        'components/{{frontend.FileName}}/{{firstLetterLower frontend.FormName}}-search.component.js'
+                    ]
+                },]
+            });
+            //Config/states of UI Router
+            $stateProvider
+                .state('{{firstLetterLower frontend.FormName}}', {
+                    url: "/{{firstLetterLower frontend.FormName}}",
+                    views: {
+                        "": {
+                            templateUrl: "components/{{frontend.FileName}}/{{firstLetterLower frontend.FormName}}.html"
+                        }
+                    },
+                    resolve: {
+                        loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
+                            return $ocLazyLoad.load('{{firstLetterLower frontend.FormName}}'); // Resolve promise and load before view
+                        }]
+                    }
+                });
+        }]);
+
+}());

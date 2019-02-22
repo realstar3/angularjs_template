@@ -1,7 +1,7 @@
 <md-dialog flex-gt-md="40" aria-label="delete sample" class="md-whiteframe-8dp cog-dialog-layout">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Edit </h2>
+            <h2>Edit {{FormDescription}}</h2>
             <span flex></span>
             <md-button class="cog-transparent-btn" ng-click="closeDialog()">
                 <md-icon>cancel</md-icon>
@@ -9,18 +9,24 @@
         </div>
     </md-toolbar>
     <md-dialog-content layout="row" flex-gt-xs="66">
-        <ng-form name="userEdit" novalidate>
+        <ng-form name="{{firstLetterLower frontend.FormName}}Edit" novalidate>
 
+            {{#each frontend.Field}}
+            {{#ifEq isReadOnly "0"}}
             <md-input-container class="md-block">
-                <label>Primary Key id</label>
-                <input type="text" ng-model="selectedRecord.id" name="Primary Key id" id="field_id"
-                    aria-label="Primary Key id" />
+                <label>{{Label}}</label>
+                <input type="text" ng-model="selectedRecord.{{FieldName}}" name="{{Label}}" id="field_{{FieldName}}"
+                    aria-label="{{Label}}" />
             </md-input-container>
+            {{/ifEq}}
+            {{#ifEq isReadOnly "1"}}
             <md-input-container class="md-block">
-                <label>Name of User</label>
-                <input type="text" ng-model="selectedRecord.name" name="Name of User" id="field_name"
-                    aria-label="Name of User" />
+                <label>{{Label}}</label>
+                <input ng-readonly="true" type="text" ng-model="selectedRecord.{{FieldName}}" name="{{Label}}" id="field_{{FieldName}}"
+                    aria-label="{{Label}}" />
             </md-input-container>
+            {{/ifEq}}
+            {{/each}}
 
             <md-input-container class="md-block">
                 <label>Name</label>

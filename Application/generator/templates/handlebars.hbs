@@ -1,0 +1,26 @@
+/**
+ * description angularjs service for {{frontend.FormName}}
+ * @version 1.1
+ * @since {{#currentDate}}{{/currentDate}}
+ * @author Mil
+ * @copyright Cogran Systems LLC
+ * to escape use backslash eg \{{ myHandlbarsVar }}
+ */
+
+{{ frontend.FormName }}
+{{firstLetterLower frontend.FormName}}
+
+
+ {{#each frontend.Field}}
+    {{#ifEq isSearch "0"}}
+	  in the loop
+             {{FieldName}} 
+    {{/ifEq}}
+{{/each}}
+			
+{{#each frontend.Field}}
+    {{firstLetterLower FieldName}}	
+    {{firstLetterLower Label}}	
+    {{firstLetterLower isSearch}}	
+    {{firstLetterLower Input}}			
+ {{/each}}

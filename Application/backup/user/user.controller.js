@@ -1,23 +1,15 @@
-/**
-* @description Form name user - User Maintenance
-* @version 1.0
-* @since Fri Feb 22 2019 14:39:42 GMT-0600 (Central Standard Time)
-* @author Jin
-* @copyright Cogran Systems LLC
-*/
-
 (function (angular, undefined) {
 
     angular.module('userApp', ['ngAnimate', 'oc.lazyLoad', 'ngMaterial', 'md.data.table', 'ngSanitize', 'vAccordion', ])
-        .controller('userCtrl', userCtrl)
-        .controller('userSearchCtrl', userSearchCtrl)
-        .controller('userAddCtrl', userAddCtrl)
-        .controller('userDeleteCtrl', userDeleteCtrl)
-        .controller('userEditCtrl', userEditCtrl)
-        .controller('userGridCtrl', userGridCtrl);
+        .controller('UserCtrl', UserCtrl)
+        .controller('UserSearchCtrl', UserSearchCtrl)
+        .controller('UserAddCtrl', UserAddCtrl)
+        .controller('UserDeleteCtrl', UserDeleteCtrl)
+        .controller('UserEditCtrl', UserEditCtrl)
+        .controller('UserGridCtrl', UserGridCtrl);
 
     function UserCtrl($scope, $mdSidenav) {
-        $scope.displayMessage = '';
+        $scope.displayMessage = 'users';
         this.data = "";
         this.searchString = '';
         $scope.stopCollapsing = false;
@@ -44,6 +36,7 @@
             } else {
                 $scope.displayMessage = 'Select or edit Results';
                 // $scope.accordionA.expand(0)
+
             }
         }
 

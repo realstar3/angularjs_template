@@ -1,0 +1,11 @@
+angular
+    .module('{{firstLetterLower frontend.FormName}}App',)
+    .component('cog{{firstLetterUpper frontend.FormName}}Find', {
+        templateUrl: '/components/{{frontend.FileName}}/{{firstLetterLower frontend.FormName}}-search.html',
+        bindings:{
+            value: '=',
+            keyword:'='
+        },
+        controllerAs:'{{firstLetterLower frontend.FormName}}SearchCtrl'
+    });
+
