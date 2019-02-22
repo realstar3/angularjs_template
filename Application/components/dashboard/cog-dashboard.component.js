@@ -22,10 +22,10 @@ angular
             });
 
         };
-        $scope.albumns_clicked = function () {
+        $scope.album_clicked = function () {
             $ocLazyLoad.load([
 
-                'components/album/user.config.js',
+                'components/album/album.config.js',
             ]).then(function () {
                 $state.go('album')
             });
