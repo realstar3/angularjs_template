@@ -1,6 +1,6 @@
 <div flex layout="row" layout-align="center none">
     <div id="userform" flex flex-md="80" flex-lg="65" flex-xl="55" style="max-height:none;">
-        <a href="#">Home</a> > 
+        <a href="#">Home</a> > User Maintenance
         <div layout-padding layout-margin flex-xs="100">
             <div layout="row" layout-align="center center" ng-if="userCtrl.data!=''">
                 <md-input-container>
@@ -14,7 +14,6 @@
                     <h6>Filter List</h6>
                 </md-button>
             </div>
-            <br />
             <v-accordion id="accordionA" class="vAccordion--default"
                 ng-hide="userCtrl.data===''" control="accordionA"
                 onexpand="expandCallback(index, id)" oncollapse="collapseCallback(index, id)">

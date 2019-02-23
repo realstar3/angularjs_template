@@ -1,0 +1,33 @@
+<div flex layout="row" layout-align="center none">
+    <div id="sampleform" flex flex-md="80" flex-lg="65" flex-xl="55" style="max-height:none;">
+        <a href="#">Dashboard</a> > User
+        <div layout-padding layout-margin flex-xs="100">
+            <div flex class="ng-scope layout-align-center-stretch layout-row flex">
+                <mat-form-field class="example-full-width">
+                    <i class="material-icons" ng-if="userCtrl.data!=''">
+                        search
+                    </i>
+                    <input ng-if="userCtrl.data!=''" matInput placeholder="Enter search String" ng-model="userCtrl.searchString"
+                        ng-change="changedSearch()">
+                    <a ng-click="openRightSide()"><i class="material-icons">
+                            line_weight
+                        </i></a>
+                </mat-form-field>
+            </div>
+            <br />
+            <v-accordion id="accordionA" class="vAccordion--default" ng-hide="userCtrl.data===''" control="accordionA"
+                onexpand="expandCallback(index, id)" oncollapse="collapseCallback(index, id)">
+                <v-pane id="pane1" expanded>
+                    <v-pane-header id="samplePane-header" aria-controls="samplePane-content">
+                        {{displayMessage}}
+                    </v-pane-header>
+                    <v-pane-content id="samplePane-content" aria-labelledby="samplePane-header">
+                        <cog-user-grid tablekeyword="userCtrl.searchString" value="userCtrl.data"
+                            keyword="userCtrl.keyword" ></cog-user-grid>
+                    </v-pane-content>
+                </v-pane>
+            </v-accordion>
+        </div>
+    </div>
+    <cog-user-find value="userCtrl.data" keyword="userCtrl.keyword"></cog-user-find>
+</div>

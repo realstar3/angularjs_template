@@ -1,23 +1,15 @@
-/**
-* @description Form name album - Album Maintenance
-* @version 1.0
-* @since Fri Feb 22 2019 23:34:56 GMT-0600 (Central Standard Time)
-* @author Jin
-* @copyright Cogran Systems LLC
-*/
-
 (function (angular, undefined) {
 
-    angular.module('albumApp', ['ngAnimate', 'oc.lazyLoad', 'ngMaterial', 'md.data.table', 'ngSanitize', 'vAccordion', ])
-        .controller('AlbumCtrl', AlbumCtrl)
-        .controller('AlbumSearchCtrl', AlbumSearchCtrl)
-        .controller('AlbumAddCtrl', AlbumAddCtrl)
-        .controller('AlbumDeleteCtrl', AlbumDeleteCtrl)
-        .controller('AlbumEditCtrl', AlbumEditCtrl)
-        .controller('AlbumGridCtrl', AlbumGridCtrl);
+    angular.module('userApp', ['ngAnimate', 'oc.lazyLoad', 'ngMaterial', 'md.data.table', 'ngSanitize', 'vAccordion', ])
+        .controller('UserCtrl', UserCtrl)
+        .controller('UserSearchCtrl', UserSearchCtrl)
+        .controller('UserAddCtrl', UserAddCtrl)
+        .controller('UserDeleteCtrl', UserDeleteCtrl)
+        .controller('UserEditCtrl', UserEditCtrl)
+        .controller('UserGridCtrl', UserGridCtrl);
 
-    function AlbumCtrl($scope, $mdSidenav) {
-        $scope.displayMessage = 'Album Maintenance';
+    function UserCtrl($scope, $mdSidenav) {
+        $scope.displayMessage = 'users';
         this.data = "";
         this.searchString = '';
         $scope.stopCollapsing = false;
@@ -38,12 +30,13 @@
         };
 
         $scope.changedSearch = function () {
-            if ($scope.albumCtrl.searchString === '') {
-                $scope.displayMessage = $scope.albumCtrl.subject;
+            if ($scope.userCtrl.searchString === '') {
+                $scope.displayMessage = $scope.userCtrl.subject;
                 $scope.accordionA.expand(0)
             } else {
                 $scope.displayMessage = 'Select or edit Results';
                 // $scope.accordionA.expand(0)
+
             }
         }
 
@@ -53,18 +46,18 @@
         };
     }
 
-    function AlbumSearchCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdSidenav, $log, $rootScope) {
+    function UserSearchCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdSidenav, $log, $rootScope) {
 
         $scope.serverError = '';
 
         var sc = $scope;
         $scope.applyFilters = function () {
 
-            sc.$parent.albumSearchCtrl.keyword = {
+            sc.$parent.userSearchCtrl.keyword = {
                 "name": sc.name,
                 "id": sc.id
             };
-            var keyword = sc.$parent.albumSearchCtrl.keyword;
+            var keyword = sc.$parent.userSearchCtrl.keyword;
 
             var params = '?';
             var categorys = Object.keys(keyword);
@@ -76,24 +69,24 @@
                     params = params + c + "=" + keyword[c] + "&";
                 }
             })
-            let url = 'https://www.brandonsport.com/albums/' + params;
+            let url = 'https://www.brandonsport.com/users/' + params;
             $http.get(url).then(
                     function (fieldList) {
                         if (fieldList.data == null || fieldList.data.length < 1) {
-                            sc.$parent.albumSearchCtrl.value = [];
+                            sc.$parent.userSearchCtrl.value = [];
                             $mdSidenav('right').toggle();
                             $mdToast.show(
                                 $mdToast.simple()
-                                .textContent('No records found, please try another search.')
+                                .textContent('No records found, please try another search (COG-1000)')
                                 .hideDelay(3000));
 
                         } else {
                             sc.serverError = '';
-                            sc.$parent.albumSearchCtrl.value = fieldList;
+                            sc.$parent.userSearchCtrl.value = fieldList;
                             $mdSidenav('right').toggle();
                             $mdToast.show(
                                 $mdToast.simple()
-                                .textContent('Records found.')
+                                .textContent('Success! (COG-1001)')
                                 .hideDelay(3000));
                         }
                     })
@@ -107,7 +100,7 @@
         }
     }
 
-    function AlbumGridCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdDialog, $mdEditDialog, $q, $timeout) {
+    function UserGridCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdDialog, $mdEditDialog, $q, $timeout) {
         this.subject = "";
 
         $scope.options = {
@@ -125,7 +118,7 @@
         $scope.limitOptions = [5, 10, 15, {
             label: 'All',
             value: function () {
-                return $scope.$parent.albumGridCtrl.value.data ? $scope.$parent.albumGridCtrl.value.data.length : 0;
+                return $scope.$parent.userGridCtrl.value.data ? $scope.$parent.userGridCtrl.value.data.length : 0;
             }
         }];
 
@@ -147,7 +140,7 @@
 
                     record[col_key] = input.$modelValue;
                     //** PUT Method **
-                    let url = 'https://www.brandonsport.com/albums/' + record.id;
+                    let url = 'https://www.brandonsport.com/users/' + record.id;
                     let config = {
                         headers: {
                             'Content-Type': 'application/json; charset=UTF-8'
@@ -160,7 +153,7 @@
                                 $mdToast.simple()
                                 .textContent(response.statusText)
                                 .hideDelay(3000));
-                            var keyword = sc.$parent.albumGridCtrl.keyword;
+                            var keyword = sc.$parent.userGridCtrl.keyword;
 
                             var params = '?';
                             var categorys = Object.keys(keyword);
@@ -172,15 +165,15 @@
                                     params = params + c + "=" + keyword[c] + "&";
                                 }
                             })
-                            let url = 'https://www.brandonsport.com/albums/' + params;
+                            let url = 'https://www.brandonsport.com/users/' + params;
                             $http.get(url).then(function (fieldList) {
                                 if (fieldList.data == null || fieldList.data.length < 1) {
-                                    sc.$parent.albumGridCtrl.value = []
+                                    sc.$parent.userGridCtrl.value = []
                                     return
                                 }
                                 var keys = Object.keys(fieldList.data[0]);
                                 fieldList.keys = keys;
-                                sc.$parent.albumGridCtrl.value = fieldList;
+                                sc.$parent.userGridCtrl.value = fieldList;
                             })
                         })
                         .catch(function (response) {
@@ -221,11 +214,11 @@
                 clickOutsideToClose: true,
                 scope: $scope, // use parent scope in template
                 preserveScope: true,
-                controller: AlbumEditCtrl,
+                controller: UserEditCtrl,
                 locals: {
                     selectedRecord: $scope.selectedRecord,
                 },
-                templateUrl: '/components/album/album-edit.dialog.html'
+                templateUrl: '/components/user/user-edit.dialog.html'
             });
         };
 
@@ -236,11 +229,11 @@
                 clickOutsideToClose: true,
                 scope: $scope, // use parent scope in template
                 preserveScope: true,
-                controller: AlbumAddCtrl,
+                controller: UserAddCtrl,
                 locals: {
                     newRecord: $scope.newRecord
                 },
-                templateUrl: '/components/album/album-add.dialog.html'
+                templateUrl: '/components/user/user-add.dialog.html'
             });
         };
 
@@ -251,21 +244,21 @@
                 clickOutsideToClose: true,
                 scope: $scope, // use parent scope in template
                 preserveScope: true,
-                controller: AlbumDeleteCtrl,
+                controller: UserDeleteCtrl,
                 locals: {
                     selectRecord: $scope.selectRecord
                 },
-                templateUrl: '/components/album/album-delete.dialog.html',
+                templateUrl: '/components/user/user-delete.dialog.html',
             });
         };
     }
 
-    function AlbumDeleteCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdDialog, selectRecord) {
+    function UserDeleteCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdDialog, selectRecord) {
 
         var sc = $scope
         $scope.closeDialog = function (selectRecord, feedback) {
             if (feedback === 'y') {
-                let url = 'https://www.brandonsport.com/albums/' + selectRecord.id;
+                let url = 'https://www.brandonsport.com/users/' + selectRecord.id;
                 let config = {
                     headers: {
                         'Content-Type': 'application/json; charset=UTF-8'
@@ -278,7 +271,7 @@
                             .textContent(response.statusText)
                             .hideDelay(3000))
 
-                        var keyword = sc.$parent.albumGridCtrl.keyword;
+                        var keyword = sc.$parent.userGridCtrl.keyword;
 
                         var params = '?';
                         var categorys = Object.keys(keyword);
@@ -290,14 +283,14 @@
                                 params = params + c + "=" + keyword[c] + "&";
                             }
                         })
-                        let url = 'https://www.brandonsport.com/albums/' + params;
+                        let url = 'https://www.brandonsport.com/users/' + params;
                         $http.get(url).then(function (fieldList) {
                             if (fieldList.data == null || fieldList.data.length < 1) {
-                                sc.$parent.albumGridCtrl.value = []
+                                sc.$parent.userGridCtrl.value = []
                                 return
                             }
 
-                            sc.$parent.albumGridCtrl.value = fieldList;
+                            sc.$parent.userGridCtrl.value = fieldList;
                         })
                     })
                     .catch(function (response) {
@@ -315,11 +308,11 @@
 
     }
 
-    function AlbumEditCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdDialog, selectedRecord) {
+    function UserEditCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdDialog, selectedRecord) {
 
         var sc = $scope;
         $scope.save = function (selectedRecord) {
-            let url = 'https://www.brandonsport.com/albums/' + selectedRecord.id;
+            let url = 'https://www.brandonsport.com/users/' + selectedRecord.id;
             let config = {
                 headers: {
                     'Content-Type': 'application/json; charset=UTF-8'
@@ -332,7 +325,7 @@
                     .textContent(response.statusText)
                     .hideDelay(3000));
 
-                var keyword = sc.$parent.albumGridCtrl.keyword;
+                var keyword = sc.$parent.userGridCtrl.keyword;
 
                 var params = '?';
                 var categorys = Object.keys(keyword);
@@ -344,14 +337,14 @@
                         params = params + c + "=" + keyword[c] + "&";
                     }
                 })
-                let url = 'https://www.brandonsport.com/albums/' + params;
+                let url = 'https://www.brandonsport.com/users/' + params;
                 $http.get(url).then(function (fieldList) {
                     if (fieldList.data == null || fieldList.data.length < 1) {
-                        sc.$parent.albumGridCtrl.value = []
+                        sc.$parent.userGridCtrl.value = []
                         return
                     }
 
-                    sc.$parent.albumGridCtrl.value = fieldList;
+                    sc.$parent.userGridCtrl.value = fieldList;
 
                 });
 
@@ -360,7 +353,7 @@
                     $mdToast.simple()
                     .textContent(response.statusText)
                     .hideDelay(3000));
-                var keyword = sc.$parent.albumGridCtrl.keyword;
+                var keyword = sc.$parent.userGridCtrl.keyword;
 
                 var params = '?';
                 var categorys = Object.keys(keyword);
@@ -372,9 +365,9 @@
                         params = params + c + "=" + keyword[c] + "&";
                     }
                 })
-                let url = 'https://www.brandonsport.com/albums/' + params;
+                let url = 'https://www.brandonsport.com/users/' + params;
                 $http.get(url).then(function (fieldList) {
-                    sc.$parent.albumGridCtrl.value = fieldList;
+                    sc.$parent.userGridCtrl.value = fieldList;
 
                 });
             });
@@ -392,7 +385,7 @@
         }
     }
 
-    function AlbumAddCtrl($ocLazyLoad, $http, $mdToast, $scope, $mdDialog, newRecord) {
+    function UserAddCtrl($ocLazyLoad, $http, $mdToast, $scope, $mdDialog, newRecord) {
         var sc = $scope;
         $scope.addRecord = function (newRecord) {
 
@@ -410,7 +403,7 @@
                         $mdToast.simple()
                         .textContent(response.statusText)
                         .hideDelay(3000))
-                    var keyword = sc.$parent.albumGridCtrl.keyword;
+                    var keyword = sc.$parent.userGridCtrl.keyword;
 
                     var params = '?';
                     var categorys = Object.keys(keyword);
@@ -422,14 +415,14 @@
                             params = params + c + "=" + keyword[c] + "&";
                         }
                     })
-                    let url = 'https://www.brandonsport.com/albums/' + params;
+                    let url = 'https://www.brandonsport.com/users/' + params;
                     $http.get(url).then(function (fieldList) {
                         if (fieldList.data == null || fieldList.data.length < 1) {
-                            sc.$parent.albumGridCtrl.value = []
+                            sc.$parent.userGridCtrl.value = []
                             return
                         }
 
-                        sc.$parent.albumGridCtrl.value = fieldList;
+                        sc.$parent.userGridCtrl.value = fieldList;
 
                     })
                 })
