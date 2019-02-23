@@ -30,6 +30,7 @@ var app = angular.module('cogranApp', ['ngAnimate','ngMaterial','ui.router', 'ng
                     },
                     { // Set modules initially
                         name: 'user', // State1 module
+                        serie: true,
                         files: [
                             'https://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.min.js',
                             'https://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.css',
@@ -43,6 +44,7 @@ var app = angular.module('cogranApp', ['ngAnimate','ngMaterial','ui.router', 'ng
                     },
                     { // Set modules initially
                         name: 'album', // State1 module
+                        serie: true,
                         files: [
                             'https://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.min.js',
                             'https://rawgit.com/daniel-nagy/md-data-table/master/dist/md-data-table.css',

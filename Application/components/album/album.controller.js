@@ -1,7 +1,7 @@
 /**
 * @description Form name album - Album Maintenance
 * @version 1.0
-* @since Fri Feb 22 2019 17:14:59 GMT-0600 (Central Standard Time)
+* @since Fri Feb 22 2019 23:06:17 GMT-0600 (Central Standard Time)
 * @author Jin
 * @copyright Cogran Systems LLC
 */
@@ -84,7 +84,7 @@
                             $mdSidenav('right').toggle();
                             $mdToast.show(
                                 $mdToast.simple()
-                                .textContent('No records found, please try another search (COG-1000)')
+                                .textContent('No records found, please try another search.')
                                 .hideDelay(3000));
 
                         } else {
@@ -93,7 +93,7 @@
                             $mdSidenav('right').toggle();
                             $mdToast.show(
                                 $mdToast.simple()
-                                .textContent('Success! (COG-1001)')
+                                .textContent('Records found.')
                                 .hideDelay(3000));
                         }
                     })

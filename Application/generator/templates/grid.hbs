@@ -14,8 +14,7 @@
             <table md-table ng-model="selected" md-progress="promise">
                 <thead ng-if="!options.decapitate" md-head md-order="query.order" md-on-reorder="logOrder">
                     <tr md-row>
-
-                        <th md-column><span>Action</span></th>
+                        <th md-column><span>Actions</span></th>
                         {{#each frontend.Field}}
                         {{#ifEq isSearch "1"}}
                         <th md-column md-order-by="{{FieldName}}"><span>{{Label}}</span></th>
@@ -26,19 +25,26 @@
                 <tbody md-body>
                     <tr md-row md-select="{{firstLetterLower frontend.FormName}}Selected" md-on-select="logItem"
                         ng-repeat="{{firstLetterLower frontend.FormName}}Record in {{firstLetterLower frontend.FormName}}GridCtrl.value.data| filter: {{firstLetterLower frontend.FormName}}GridCtrl.tablekeyword | orderBy: query.order | limitTo: query.limit : (query.page -1) * query.limit">
-                        <td md-cell class="width-override">
-                            <span style="cursor: pointer;"
-                                ng-click="[showEditDialog($event, {{firstLetterLower frontend.FormName}}Record )]">
-                                <md-icon>edit</md-icon>
-                            </span>
-                            <span style="cursor: pointer;"
-                                ng-click="[showDeleteConfirmationDialog($event,{{firstLetterLower frontend.FormName}}Record)]">
-                                <md-icon class="md-warn">delete</md-icon>
-                            </span>
+                        <td md-cell>
+                            <div layout="row" layout-align="start">
+                                <div>
+                                    <span style="cursor: pointer;"
+                                        ng-click="[showEditDialog($event, {{firstLetterLower frontend.FormName}}Record )]">
+                                        <md-icon>edit</md-icon>
+                                    </span>
+                                </div>
+                                <div ng-hide="false">
+                                    <span style="cursor: pointer;"
+                                        ng-click="[showDeleteConfirmationDialog($event,{{firstLetterLower frontend.FormName}}Record)]">
+                                        <md-icon class="md-warn">delete</md-icon>
+                                    </span>
+                                </div>
+                            </div>
                         </td>
                         {{#each frontend.Field}}
-                        {{#ifEq isSearch "1"}}
-                        <td md-cell ng-click="editComment($event, {{firstLetterLower ../frontend.FormName}}Record,'{{FieldName}}')">
+                        {{#ifEq isGridInput "1"}}
+                        <td md-cell
+                            ng-click="editComment($event, {{firstLetterLower ../frontend.FormName}}Record,'{{FieldName}}')">
                             \{{ {{firstLetterLower ../frontend.FormName}}Record.{{FieldName}} }}
                         </td>
                         {{/ifEq}}

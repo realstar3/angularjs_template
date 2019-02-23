@@ -1,33 +1,38 @@
 <div flex layout="row" layout-align="center none">
-    <div id="sampleform" flex flex-md="80" flex-lg="65" flex-xl="55" style="max-height:none;">
+    <div id="albumform" flex flex-md="80" flex-lg="65" flex-xl="55" style="max-height:none;">
         <a href="#">Home</a> > 
         <div layout-padding layout-margin flex-xs="100">
-            <div flex class="ng-scope layout-align-center-stretch layout-row flex">
-                <mat-form-field class="example-full-width">
-                    <i class="material-icons" ng-if="albumCtrl.data!=''">
-                        search
-                    </i>
-                    <input ng-if="albumCtrl.data!=''" matInput placeholder="Enter search String" ng-model="albumCtrl.searchString"
-                        ng-change="changedSearch()">
-                    <a ng-click="openRightSide()"><i class="material-icons">
-                            line_weight
-                        </i></a>
-                </mat-form-field>
+            <div layout="row" layout-align="center center" ng-if="albumCtrl.data!=''">
+                <md-input-container>
+                    <md-icon>search</md-icon>
+                    <input ng-model="albumCtrl.searchString"
+                        ng-change="changedSearch()" aria-label="Filter list" md-autofocus
+                        md-placeholder="Filter your information...">
+                </md-input-container>
+                <md-button class="md-primary" ng-click="openRightSide()">
+                    <md-icon>menu</md-icon>
+                    <h6>Filter List</h6>
+                </md-button>
             </div>
             <br />
-            <v-accordion id="accordionA" class="vAccordion--default" ng-hide="albumCtrl.data===''" control="accordionA"
+            <v-accordion id="accordionA" class="vAccordion--default"
+                ng-hide="albumCtrl.data===''" control="accordionA"
                 onexpand="expandCallback(index, id)" oncollapse="collapseCallback(index, id)">
                 <v-pane id="pane1" expanded>
                     <v-pane-header id="samplePane-header" aria-controls="samplePane-content">
                         {{displayMessage}}
                     </v-pane-header>
                     <v-pane-content id="samplePane-content" aria-labelledby="samplePane-header">
-                        <cog-album-grid tablekeyword="albumCtrl.searchString" value="albumCtrl.data"
-                            keyword="albumCtrl.keyword" ></cog-album-grid>
+                        <cog-album-grid
+                            tablekeyword="albumCtrl.searchString"
+                            value="albumCtrl.data"
+                            keyword="albumCtrl.keyword">
+                        </cog-album-grid>
                     </v-pane-content>
                 </v-pane>
             </v-accordion>
         </div>
     </div>
-    <cog-album-find value="albumCtrl.data" keyword="albumCtrl.keyword"></cog-album-find>
+    <cog-album-find value="albumCtrl.data"
+        keyword="albumCtrl.keyword"></cog-album-find>
 </div>

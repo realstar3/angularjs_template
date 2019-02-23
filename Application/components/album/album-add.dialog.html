@@ -1,37 +1,43 @@
 <md-dialog flex-gt-md="40" aria-label="delete sample" class="md-whiteframe-8dp cog-dialog-layout">
     <md-toolbar>
         <div class="md-toolbar-tools">
-            <h2>Add Description</h2>
+            <h2>Add </h2>
             <span flex></span>
             <md-button class="cog-transparent-btn" ng-click="closeDialog()">
                 <md-icon>cancel</md-icon>
             </md-button>
         </div>
     </md-toolbar>
-    <md-dialog-content layout="row" flex-gt-xs="66">
-        <ng-form name="albumAdd" novalidate>
-            <md-input-container class="md-block">
-                <label>Primary Key id</label>
-                <input type="text" ng-model="newRecord.id" name="Primary Key id" id="field_add_id"
-                    aria-label="Primary Key id" />
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>Name of album</label>
-                <input type="text" ng-model="newRecord.name" name="Name of album" id="field_add_name"
-                    aria-label="Name of album" />
-            </md-input-container>
-            <md-input-container class="md-block">
-                <label>User with album</label>
-                <input type="text" ng-model="newRecord.userid" name="User with album" id="field_add_userid"
-                    aria-label="User with album" />
-            </md-input-container>
-            <div layout="column" class="layout-column ">
-                <md-button cogvalidate="" ng-click="addRecord(newRecord)"
-                    class="md-raised md-primary md-block md-DarkBlue-theme ">Add
-                </md-button>
-                <md-button ng-click="cancel() " class="md-primary md-warn md-block md-DarkBlue-theme ">Close
-                </md-button>
-            </div>
-        </ng-form>
+    <md-dialog-content layout="column" flex flex-gt-xs="66">
+        <div class="md-dialog-content">
+            <ng-form name="albumAdd" novalidate>
+                <md-content layout-padding>
+                    <div class="md-dialog-content">
+                        <md-input-container class="md-block">
+                            <label>Primary Key id</label>
+                            <input type="text" ng-model="newRecord.id" name="Primary Key id"
+                                id="field_add_id" aria-label="Primary Key id" />
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>Name of album</label>
+                            <input type="text" ng-model="newRecord.name" name="Name of album"
+                                id="field_add_name" aria-label="Name of album" />
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <label>User with album</label>
+                            <input type="text" ng-model="newRecord.userid" name="User with album"
+                                id="field_add_userid" aria-label="User with album" />
+                        </md-input-container>
+                        <div layout="column" class="layout-column ">
+                            <md-button cogvalidate="" ng-click="addRecord(newRecord)"
+                                class="md-raised md-primary md-block md-DarkBlue-theme ">Add
+                            </md-button>
+                            <md-button ng-click="cancel() " class="md-primary md-warn md-block md-DarkBlue-theme ">Close
+                            </md-button>
+                        </div>
+                    </div>
+                </md-content>
+            </ng-form>
+        </div>
     </md-dialog-content>
 </md-dialog>
