@@ -398,7 +398,7 @@
 
             newRecord['id'] = parseInt(newRecord['id'], 10);
 
-            let url = 'https://www.brandonsport.com/users';
+            let url = 'https://www.brandonsport.com/albums';
             let config = {
                 headers: {
                     'Content-Type': 'application/json; charset=UTF-8'
