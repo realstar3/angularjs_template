@@ -1,21 +1,21 @@
 (function () {
-    angular.module('userApp', ['ngAnimate', 'ngMaterial', 'ui.router', 'ngSanitize', 'oc.lazyLoad'])
+    angular.module('parentApp', ['ngAnimate', 'ngMaterial', 'ui.router', 'ngSanitize', 'oc.lazyLoad'])
         .config(['$ocLazyLoadProvider', '$stateProvider', '$urlRouterProvider',
             function ($ocLazyLoadProvider, $stateProvider, $urlRouterProvider) {
                 $urlRouterProvider.otherwise("/");
                 $stateProvider
-                    .state('user', {
-                        url: "/user",
+                    .state('parent', {
+                        url: "/parent",
                         views: {
                             "": {
-                                templateUrl: "components/user/user.html",
-                                controller: 'UserCtrl',
-                                controllerAs: 'userCtrl'
+                                templateUrl: "components/parent/parent.html",
+                                controller: 'ParentCtrl',
+                                controllerAs: 'parentCtrl'
                             }
                         },
                         resolve: {
                             loadMyCtrl: ['$ocLazyLoad', function ($ocLazyLoad) {
-                                return $ocLazyLoad.load('user'); // Resolve promise and load before view
+                                return $ocLazyLoad.load('parent'); // Resolve promise and load before view
                             }]
                         }
                     });

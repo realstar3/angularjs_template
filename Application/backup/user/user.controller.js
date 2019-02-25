@@ -1,3 +1,11 @@
+/**
+* @description Form name user - User Maintenance
+* @version 1.0
+* @since Fri Feb 22 2019 23:35:03 GMT-0600 (Central Standard Time)
+* @author Jin
+* @copyright Cogran Systems LLC
+*/
+
 (function (angular, undefined) {
 
     angular.module('userApp', ['ngAnimate', 'oc.lazyLoad', 'ngMaterial', 'md.data.table', 'ngSanitize', 'vAccordion', ])
@@ -9,7 +17,7 @@
         .controller('UserGridCtrl', UserGridCtrl);
 
     function UserCtrl($scope, $mdSidenav) {
-        $scope.displayMessage = 'users';
+        $scope.displayMessage = 'User Maintenance';
         this.data = "";
         this.searchString = '';
         $scope.stopCollapsing = false;
@@ -36,7 +44,6 @@
             } else {
                 $scope.displayMessage = 'Select or edit Results';
                 // $scope.accordionA.expand(0)
-
             }
         }
 
@@ -77,7 +84,7 @@
                             $mdSidenav('right').toggle();
                             $mdToast.show(
                                 $mdToast.simple()
-                                .textContent('No records found, please try another search (COG-1000)')
+                                .textContent('No records found, please try another search.')
                                 .hideDelay(3000));
 
                         } else {
@@ -86,7 +93,7 @@
                             $mdSidenav('right').toggle();
                             $mdToast.show(
                                 $mdToast.simple()
-                                .textContent('Success! (COG-1001)')
+                                .textContent('Records found.')
                                 .hideDelay(3000));
                         }
                     })

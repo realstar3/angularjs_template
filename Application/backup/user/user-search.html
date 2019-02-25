@@ -8,10 +8,17 @@
                 <div>
                     <div layout="column">
                         <span ng-message="serverError" class="label label-danger">{{serverError}}</span>
-                        <md-button ng-init="userCtrl.showItemFetchProgressBar = true" ng-click="applyFilters()" class="md-accent md-raised">Search
+                        <md-button ng-init="userCtrl.showItemFetchProgressBar = true"
+                            ng-click="applyFilters()" class="md-accent md-raised">Search
                         </md-button>
-                        <input matInput placeholder="Name" ng-model="name">
-                        <input matInput placeholder="ID" ng-model="id">
+                        <md-input-container class="md-block">
+                            <input type="text" ng-model="id" name="Primary Key id" placeholder="Primary Key id"
+                                aria-label="Primary Key id" />
+                        </md-input-container>
+                        <md-input-container class="md-block">
+                            <input type="text" ng-model="name" name="Name of User" placeholder="Name of User"
+                                aria-label="Name of User" />
+                        </md-input-container>
                     </div>
                 </div>
             </div>

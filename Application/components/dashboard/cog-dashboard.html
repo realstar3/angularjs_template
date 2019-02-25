@@ -12,14 +12,20 @@
         </section>
         <md-divider></md-divider>
         <section  layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-            <md-button disabled="" ng-click=users_clicked() class="md-primary" >
+            <md-button disabled="true" ng-click=users_clicked() class="md-primary" >
                 Users
             </md-button>
         </section>
         <md-divider></md-divider>
         <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
-            <md-button disabled="" ng-click=album_clicked() class="md-primary" >
+            <md-button disabled="true" ng-click=album_clicked() class="md-primary" >
                 Albums
+            </md-button>
+        </section>
+        <md-divider></md-divider>
+        <section layout="row" layout-sm="column" layout-align="center center" layout-wrap>
+            <md-button disabled="" ng-click=parent_clicked() class="md-primary" >
+                Parent
             </md-button>
         </section>
     </md-content>

@@ -2,13 +2,13 @@
     <md-toolbar class="md-theme-light">
         <h1 class="md-toolbar-tools">Filter List By</h1>
     </md-toolbar>
-    <div layout-padding ng-controller="UserSearchCtrl">
+    <div layout-padding >
         <form>
             <div class="md-padding" ng-cloak>
                 <div>
                     <div layout="column">
                         <span ng-message="serverError" class="label label-danger">{{serverError}}</span>
-                        <md-button ng-init="userCtrl.showItemFetchProgressBar = true"
+                        <md-button ng-init="parentSearchCtrl.showItemFetchProgressBar = true"
                             ng-click="applyFilters()" class="md-accent md-raised">Search
                         </md-button>
                         <md-input-container class="md-block">

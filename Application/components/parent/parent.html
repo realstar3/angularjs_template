@@ -1,0 +1,53 @@
+<div flex layout="row" layout-align="center none">
+    <div id="parentForm" flex flex-md="80" flex-lg="65" flex-xl="55" style="max-height:none;">
+        <a href="#">Parent</a> > Parent Maintenance
+        <div layout-padding layout-margin flex-xs="100">
+            <div layout="row" layout-align="center center" >
+                <md-input-container ng-show="parentCtrl.users">
+                    <md-icon>search</md-icon>
+                    <input ng-model="parentCtrl.searchString"
+                           ng-change="changedSearch()" aria-label="Filter list" md-autofocus
+                           md-placeholder="Filter your information...">
+                </md-input-container>
+                <md-button class="md-primary" ng-click="openRightSide()">
+                    <md-icon>menu</md-icon>
+                    <h6>Filter List</h6>
+                </md-button>
+            </div>
+
+            <v-accordion id="accordionA" class="vAccordion--default"
+                         ng-show="parentCtrl.users" control="accordionA"
+                         onexpand="expandCallback(index, id)" oncollapse="collapseCallback(index, id)">
+                <v-pane id="user-pane" expanded>
+                    <v-pane-header id="user-pane-header" aria-controls="user-pane-content" >
+                        {{userDisplayMessage}}
+                    </v-pane-header>
+                    <v-pane-content id="user-pane-content" aria-labelledby="user-pane-header">
+                        <cog-user-grid
+                                user-id="parentCtrl.userId"
+                                on-select="selectedAlbum(albums)"
+                                tablekeyword="parentCtrl.searchString"
+                                users="parentCtrl.users"
+                                albums="parentCtrl.albums"
+                                keyword="parentCtrl.keyword">
+                        </cog-user-grid>
+                    </v-pane-content>
+                </v-pane>
+                <v-pane id="album-pane" >
+                    <v-pane-header id="album-pane-header" aria-controls="album-pane-content" >
+                        {{albumDisplayMessage}}
+                    </v-pane-header>
+                    <v-pane-content id="album-pane-content" aria-labelledby="album-pane-header">
+                        <cog-album-grid
+                                user-id="parentCtrl.userId"
+                                tablekeyword="parentCtrl.searchString"
+                                albums="parentCtrl.albums">
+                        </cog-album-grid>
+                    </v-pane-content>
+                </v-pane>
+            </v-accordion>
+        </div>
+    </div>
+    <cog-user-search value="parentCtrl.users"
+                    keyword="parentCtrl.keyword"></cog-user-search>
+</div>

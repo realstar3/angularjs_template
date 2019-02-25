@@ -2,13 +2,10 @@
         .module('albumApp')
         .component('cogAlbumGrid', {
             templateUrl: './components/album/album-grid.html',
-            bindings:{
+            bindings: {
+                tablekeyword: '=',
+                value: '=',
                 keyword: '=',
-                albums:"=",
-
-
             },
-
-        });
-
-
+            controllerAs: 'albumGridCtrl'
+        })
