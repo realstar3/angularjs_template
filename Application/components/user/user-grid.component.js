@@ -1,7 +1,7 @@
 angular
     .module('parentApp')
     .component('cogUserGrid', {
-        templateUrl: './components/parent/user/user-grid.html',
+        templateUrl: './components/user/user-grid.html',
         bindings: {
             onSelect: '&',
             tablekeyword: '=',
@@ -163,7 +163,7 @@ function UserGridCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdDialog, $mdEditDi
             locals: {
                 newRecord: $scope.newRecord
             },
-            templateUrl: '/components/parent/user/user-add.dialog.html'
+            templateUrl: '/components/user/user-add.dialog.html'
         });
     };
 
@@ -177,7 +177,7 @@ function UserGridCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdDialog, $mdEditDi
             locals: {
                 selectedRecord: $scope.selectedRecord,
             },
-            templateUrl: '/components/parent/user/user-edit.dialog.html'
+            templateUrl: '/components/user/user-edit.dialog.html'
         });
     };
 
@@ -193,7 +193,7 @@ function UserGridCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdDialog, $mdEditDi
             locals: {
                 selectRecord: $scope.selectRecord
             },
-            templateUrl: '/components/parent/user/user-delete.dialog.html',
+            templateUrl: '/components/user/user-delete.dialog.html',
         });
     };
 }

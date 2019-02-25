@@ -1,7 +1,7 @@
 angular
     .module('parentApp')
     .component('cogAlbumGrid', {
-        templateUrl: './components/parent/album/album-grid.html',
+        templateUrl: './components/album/album-grid.html',
         bindings:{
             keyword: '=',
             albums:"=",
@@ -123,7 +123,7 @@ function AlbumGridCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdDialog, $mdEditD
             locals: {
                 newRecord: $scope.newRecord
             },
-            templateUrl: '/components/parent/album/album-add.dialog.html'
+            templateUrl: '/components/album/album-add.dialog.html'
         });
     };
 
@@ -137,7 +137,7 @@ function AlbumGridCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdDialog, $mdEditD
             locals: {
                 selectedRecord: $scope.selectedRecord,
             },
-            templateUrl: '/components/parent/album/album-edit.dialog.html'
+            templateUrl: '/components/album/album-edit.dialog.html'
         });
     };
 
@@ -152,7 +152,7 @@ function AlbumGridCtrl($ocLazyLoad, $http, $scope, $mdToast, $mdDialog, $mdEditD
             locals: {
                 selectRecord: $scope.selectRecord
             },
-            templateUrl: '/components/parent/album/album-delete.dialog.html',
+            templateUrl: '/components/album/album-delete.dialog.html',
         });
     };
 }

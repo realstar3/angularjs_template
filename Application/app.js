@@ -68,8 +68,8 @@ var app = angular.module('cogranApp', ['ngAnimate','ngMaterial','ui.router', 'ng
                             'https://lukaszwatroba.github.io/v-accordion/dist/v-accordion.min.js',
                             'components/parent/parent.js',
                             'components/parent/parent-search.component.js',
-                            'components/parent/user/user-grid.component.js',
-                            'components/parent/album/album-grid.component.js'
+                            'components/user/user-grid.component.js',
+                            'components/album/album-grid.component.js'
 
 
 
